@@ -39,7 +39,9 @@ class HomeForm extends GetView<HomeController> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              // handle the press
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const QRViewExample(),
+              ));
             },
             icon: const Icon(
               Icons.add,
@@ -48,15 +50,8 @@ class HomeForm extends GetView<HomeController> {
           )
         ],
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const QRViewExample(),
-            ));
-          },
-          child: const Text('qrView'),
-        ),
+      body: const Center(
+        child: Text('Home Screen'),
       ),
     );
   }
