@@ -1,4 +1,3 @@
-import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:beep_mobile/app/controllers/drawer.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
 import 'package:beep_mobile/app/services/local/auth_service.dart';
@@ -6,6 +5,7 @@ import 'package:beep_mobile/app/services/local/theme_service.dart';
 import 'package:beep_mobile/utils/SizeConfig.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
+import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -22,47 +22,45 @@ class DrawerWidget extends GetView<DrawerWidgetController> {
       child: Drawer(
         child: controller.obx(
           (state) => Container(
-            height: MySize.safeHeight,
+            height: double.infinity,
             color: AppTheme.getCustomAppTheme().bgLayer1,
             child: ListView(
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               // mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                SafeArea(
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const Image(
-                          image: AssetImage("assets/images/beep_logo.png"),
-                          height: 112,
-                          width: 112,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      const Image(
+                        image: AssetImage("assets/images/beep_logo.png"),
+                        height: 112,
+                        width: 112,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            color: AppTheme.getThemeFromThemeMode()
+                                .colorScheme
+                                .primaryContainer
+                                .withAlpha(40),
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Text("${LocaleKeys.label_version.tr} : 1.0.0",
+                            textAlign: TextAlign.center,
+                            style: AppTheme.getTextStyle(
+                              AppTheme.getThemeFromThemeMode()
+                                  .textTheme
+                                  .caption,
+                              fontSize: 13,
+                              // height: 1.5,
                               color: AppTheme.getThemeFromThemeMode()
                                   .colorScheme
-                                  .primaryContainer
-                                  .withAlpha(40),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: Text("${LocaleKeys.label_version.tr} : 1.0.0",
-                              textAlign: TextAlign.center,
-                              style: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .caption,
-                                fontSize: 13,
-                                // height: 1.5,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .primary,
-                                fontWeight: 900,
-                              )),
-                        ),
-                      ],
-                    ),
+                                  .primary,
+                              fontWeight: 900,
+                            )),
+                      ),
+                    ],
                   ),
                 ),
                 const Divider(),

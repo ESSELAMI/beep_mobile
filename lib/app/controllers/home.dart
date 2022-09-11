@@ -1,10 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
-
 import 'package:beep_mobile/app/models/user/user.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
+import 'package:beep_mobile/app/views/screens/home/add_product.dart';
 import 'package:beep_mobile/app/views/screens/home/components/dialogs/confirm_close_app_dialog.dart';
 import 'package:beep_mobile/app/views/screens/home/components/dialogs/product_dialog.dart';
+import 'package:beep_mobile/app/views/widgets/route_builders/slide_left_route.dart';
 import 'package:beep_mobile/base/controllers/home.dart';
 // import 'package:beep_mobile/utils/api/notificationsApi.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +50,8 @@ class HomeController extends BaseHomeController {
       // await cameraController!.resumeCamera();
       getProduct(result!.code.toString())!.then((value) {
         if (value != null) {
-          showDialog(
-              barrierDismissible: false,
-              context: Get.context!,
-              builder: (BuildContext context) => ProductDialog(value));
+          Navigator.push(
+              Get.context!, SlideLeftRoute(ProductInfoWidget(value)));
         } else {
           showDialog(
               barrierDismissible: false,

@@ -3,9 +3,6 @@
 // found in the LICENSE file.
 
 /// [FxDottedLine] - gives a dotted line.
-
-// ignore_for_file: empty_catches
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -111,7 +108,7 @@ class _FxDottedLineState extends State<FxDottedLine> {
   }
 
   void tryToGetChildSize() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       try {
         RenderBox box =
             childKey.currentContext!.findRenderObject() as RenderBox;
