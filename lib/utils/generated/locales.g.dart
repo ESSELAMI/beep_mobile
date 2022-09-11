@@ -271,6 +271,17 @@ class LocaleKeys {
   static const notification_aid_fitr = 'notification_aid_fitr';
   static const error_single_message_per_day = 'error_single_message_per_day';
   static const notification_new_version = 'notification_new_version';
+  static const label_product_info = 'label_product_info';
+  static const label_product_name = 'label_product_name';
+  static const label_category = 'label_category';
+  static const label_unity = 'label_unity';
+  static const label_product_arabic_name = 'label_product_arabic_name';
+  static const label_add = 'label_add';
+  static const label_add_product = 'label_add_product';
+  static const label_search_product = 'label_search_product';
+  static const label_manual = 'label_manual';
+  static const label_product_image = 'label_product_image';
+  static const label_brand = 'label_brand';
 }
 
 class Locales {
@@ -546,6 +557,17 @@ class Locales {
         'لديك الحق في إرسال طلب واحد فقط في اليوم (من نفس الخدمة)',
     'notification_new_version':
         'Google Play إصدار جديد لتطبيق الهناء متوفر الآن على',
+    'label_product_info': 'معلومات المنتوج',
+    'label_product_name': 'إسم المنتوج بالأحرف اللاتنية',
+    'label_category': 'الفئة',
+    'label_unity': 'الوحدة',
+    'label_product_arabic_name': 'إسم المنتوج ',
+    'label_add': 'إضافة',
+    'label_add_product': 'إضافة منتوج',
+    'label_search_product': 'البحث عن منتوج',
+    'label_manual': 'يدويا',
+    'label_product_image': 'صورة المنتوج',
+    'label_brand': 'العلامة التجارية',
   };
   static const en = {
     'app_name': 'EL HANAA APP',
@@ -822,6 +844,17 @@ class Locales {
         'You have the right to send only one request per day (same service)',
     'notification_new_version':
         'A new version of EL HANAA is available on Google Play',
+    'label_product_info': 'Product information',
+    'label_product_name': 'Product name',
+    'label_category': 'Category',
+    'label_unity': 'Unit',
+    'label_product_arabic_name': 'Product name in Arabic',
+    'label_add': 'Add',
+    'label_add_product': 'Add a product',
+    'label_search_product': 'Search a product',
+    'label_manual': 'Manual',
+    'label_product_image': 'Product image',
+    'label_brand': 'Brand name',
   };
   static const fr = {
     'app_name': 'ESPACE EL HANAA ',
@@ -865,7 +898,7 @@ class Locales {
     'message_intro_one':
         'Plateforme caritative de prêt de matériel médical divers.',
     'message_intro_two':
-        'L\'équipement disponible dans beep_mobile est varié et comprend tous les appareils destinés aux soins de santé à domicile.',
+        'L\'équipement disponible dans RAHTEK est varié et comprend tous les appareils destinés aux soins de santé à domicile.',
     'message_intro_three': 'Consultez vos remboursements en un clic.',
     'message_intro_four': 'Des alertes vous seront envoyées.',
     'label_consumption_history': 'HISTORIQUE DES REMBOURSEMENTS',
@@ -1109,5 +1142,16 @@ class Locales {
         'Vous avez le droit d\'envoyer une seule requette par jour (de meme service)',
     'notification_new_version':
         'Une nouvelle version de l\'application EL HANAA est disponible sur Google Play',
+    'label_product_info': 'Les informations du produits',
+    'label_product_name': 'Nom du produit',
+    'label_category': 'Catégorie',
+    'label_unity': 'Unité',
+    'label_product_arabic_name': 'Nom du produit en arabe',
+    'label_add': 'Ajouter',
+    'label_add_product': 'Ajouter un produit',
+    'label_search_product': 'Rechercher un produit',
+    'label_manual': 'Manuel',
+    'label_product_image': 'Photo du produit',
+    'label_brand': 'Marque',
   };
 }

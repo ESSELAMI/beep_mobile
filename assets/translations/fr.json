@@ -246,5 +246,16 @@
   "error_doctor_names_french": "Veuillez écrire le nom et le prénom du médecin en lettres latines.",
   "notification_aid_fitr": "La caisse nationale des assurances sociale vous souhaite Aid Mubarek",
   "error_single_message_per_day": "Vous avez le droit d'envoyer une seule requette par jour (de meme service)",
-  "notification_new_version": "Une nouvelle version de l'application EL HANAA est disponible sur Google Play"
+  "notification_new_version": "Une nouvelle version de l'application EL HANAA est disponible sur Google Play",
+  "label_product_info": "Les informations du produits",
+  "label_product_name": "Nom du produit",
+  "label_category": "Catégorie",
+  "label_unity": "Unité",
+  "label_product_arabic_name": "Nom du produit en arabe",
+  "label_add": "Ajouter",
+  "label_add_product": "Ajouter un produit",
+  "label_search_product": "Rechercher un produit",
+  "label_manual": "Manuel",
+  "label_product_image": "Photo du produit",
+  "label_brand": "Marque"
 }

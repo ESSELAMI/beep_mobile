@@ -246,5 +246,16 @@
   "error_doctor_names_french": "الرجاء كتابة إسم و لقب الطبيب بالأحرف اللاتينية",
   "notification_aid_fitr": "الصندوق الوطني للضمان الإجتماعي يتمنى لكم عيد مبارك",
   "error_single_message_per_day": "لديك الحق في إرسال طلب واحد فقط في اليوم (من نفس الخدمة)",
-  "notification_new_version": "Google Play إصدار جديد لتطبيق الهناء متوفر الآن على"
+  "notification_new_version": "Google Play إصدار جديد لتطبيق الهناء متوفر الآن على",
+  "label_product_info": "معلومات المنتوج",
+  "label_product_name": "إسم المنتوج بالأحرف اللاتنية",
+  "label_category": "الفئة",
+  "label_unity": "الوحدة",
+  "label_product_arabic_name": "إسم المنتوج ",
+  "label_add": "إضافة",
+  "label_add_product": "إضافة منتوج",
+  "label_search_product": "البحث عن منتوج",
+  "label_manual": "يدويا",
+  "label_product_image": "صورة المنتوج",
+  "label_brand": "العلامة التجارية"
 }

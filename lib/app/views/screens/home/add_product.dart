@@ -4,9 +4,7 @@ import 'package:beep_mobile/app/views/widgets/widgets.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
 import 'package:beep_mobile/utils/spacing.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
@@ -30,16 +28,18 @@ class ProductInfoWidget extends GetView<HomeController> {
 // Create a key
   @override
   Widget build(BuildContext context) {
+    print(product!.toJson());
     return controller.obx(
       (state) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
           elevation: 1,
           leading: InkWell(
-            onTap: () {
+            onTap: () async {
               // final thenTo = Get.rootDelegate.currentConfiguration!
               //     .currentPage!.parameters?['then'];
               // Get.rootDelegate.toNamed(thenTo ?? Routes.HOME);
+              await controller.cameraController!.resumeCamera();
               Navigator.pop(context);
             },
             child: Icon(
@@ -48,7 +48,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                   : MdiIcons.chevronLeft,
             ),
           ),
-          title: Text(LocaleKeys.label_new_sick_leave_request.tr,
+          title: Text(LocaleKeys.label_product_info.tr,
               textAlign: TextAlign.center,
               style: AppTheme.getTextStyle(
                   AppTheme.getThemeFromThemeMode().textTheme.subtitle1,
@@ -282,6 +282,178 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
+                          initialValue: product!.barcode,
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "null";
+                          //   }
+                          // },
+                          // controller: controller.numberOfDaysController,
+                          style: AppTheme.getTextStyle(
+                              AppTheme.getThemeFromThemeMode()
+                                  .textTheme
+                                  .bodyText2,
+                              // height: 2,
+                              letterSpacing: 0.1,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onBackground,
+                              fontWeight: 500),
+                          decoration: InputDecoration(
+                            // prefixText: "+91 ",
+                            hintStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                letterSpacing: 0.1,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground,
+                                fontWeight: 500),
+                            hintText: LocaleKeys.label_qrcode.tr,
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: LocaleKeys.label_qrcode.tr,
+                            labelStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                fontWeight: 800,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground),
+                            prefixStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                letterSpacing: 0.1,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground,
+                                fontWeight: 500),
+                            border: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            enabledBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            focusedBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            filled: true,
+                            fillColor: AppTheme.getThemeFromThemeMode()
+                                .colorScheme
+                                .background,
+                            prefixIcon: Icon(
+                              MdiIcons.barcode,
+                              size: 22,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onBackground
+                                  .withAlpha(200),
+                            ),
+                            isDense: true,
+                            contentPadding: const EdgeInsets.all(0),
+                          ),
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.sentences,
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        width: double.infinity,
+                        child: TextFormField(
+                          initialValue: product!.brands,
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "null";
+                          //   }
+                          // },
+                          // controller: controller.numberOfDaysController,
+                          style: AppTheme.getTextStyle(
+                              AppTheme.getThemeFromThemeMode()
+                                  .textTheme
+                                  .bodyText2,
+                              // height: 2,
+                              letterSpacing: 0.1,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onBackground,
+                              fontWeight: 500),
+                          decoration: InputDecoration(
+                            // prefixText: "+91 ",
+                            hintStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                letterSpacing: 0.1,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground,
+                                fontWeight: 500),
+                            hintText: LocaleKeys.label_brand.tr,
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: LocaleKeys.label_brand.tr,
+                            labelStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                fontWeight: 800,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground),
+                            prefixStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                letterSpacing: 0.1,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground,
+                                fontWeight: 500),
+                            border: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            enabledBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            focusedBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            filled: true,
+                            fillColor: AppTheme.getThemeFromThemeMode()
+                                .colorScheme
+                                .background,
+                            prefixIcon: Icon(
+                              MdiIcons.store,
+                              size: 22,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onBackground
+                                  .withAlpha(200),
+                            ),
+                            isDense: true,
+                            contentPadding: const EdgeInsets.all(0),
+                          ),
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.sentences,
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        width: double.infinity,
+                        child: TextFormField(
                           initialValue: product!.productName,
                           // validator: (value) {
                           //   if (value!.isEmpty) {
@@ -293,7 +465,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                               AppTheme.getThemeFromThemeMode()
                                   .textTheme
                                   .bodyText2,
-                              height: 2,
+                              // height: 2,
                               letterSpacing: 0.1,
                               color: AppTheme.getThemeFromThemeMode()
                                   .colorScheme
@@ -310,9 +482,9 @@ class ProductInfoWidget extends GetView<HomeController> {
                                     .colorScheme
                                     .onBackground,
                                 fontWeight: 500),
-                            hintText: LocaleKeys.label_number_of_days.tr,
+                            hintText: LocaleKeys.label_product_name.tr,
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            labelText: LocaleKeys.label_number_of_days.tr,
+                            labelText: LocaleKeys.label_product_name.tr,
                             labelStyle: AppTheme.getTextStyle(
                                 AppTheme.getThemeFromThemeMode()
                                     .textTheme
@@ -350,7 +522,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                                 .colorScheme
                                 .background,
                             prefixIcon: Icon(
-                              MdiIcons.numeric1BoxMultiple,
+                              MdiIcons.tagOutline,
                               size: 22,
                               color: AppTheme.getThemeFromThemeMode()
                                   .colorScheme
@@ -360,144 +532,26 @@ class ProductInfoWidget extends GetView<HomeController> {
                             isDense: true,
                             contentPadding: const EdgeInsets.all(0),
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences,
                         ),
                       ),
                       Container(
-                        width: double.infinity,
                         margin: const EdgeInsets.symmetric(vertical: 8),
-                        child: DropdownSearch<String>(
-                            dropdownButtonProps: DropdownButtonProps(
-                              icon: Icon(
-                                MdiIcons.menuDown,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground,
-                              ),
-                            ),
-                            dropdownBuilder: (context, selectedItem) => Text(
-                                selectedItem.toString(),
-                                style: AppTheme.getTextStyle(
-                                    AppTheme.getThemeFromThemeMode()
-                                        .textTheme
-                                        .subtitle2,
-                                    height: 1.2)),
-                            popupProps: PopupProps.menu(
-                              itemBuilder: (context, item, isSelected) =>
-                                  Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 16),
-                                child: Text(
-                                  item.toString(),
-                                  style: AppTheme.getTextStyle(
-                                      AppTheme.getThemeFromThemeMode()
-                                          .textTheme
-                                          .bodyText1,
-                                      color: isSelected
-                                          ? AppTheme.getThemeFromThemeMode()
-                                              .colorScheme
-                                              .primary
-                                          : AppTheme.getThemeFromThemeMode()
-                                              .colorScheme
-                                              .onBackground,
-                                      height: 2),
-                                ),
-                              ),
-                            ),
-                            dropdownDecoratorProps: DropDownDecoratorProps(
-                              dropdownSearchDecoration: InputDecoration(
-                                // prefixText: "+91 ",
-                                hintStyle: AppTheme.getTextStyle(
-                                    AppTheme.getThemeFromThemeMode()
-                                        .textTheme
-                                        .subtitle2,
-                                    letterSpacing: 0.1,
-                                    color: AppTheme.getThemeFromThemeMode()
-                                        .colorScheme
-                                        .onBackground,
-                                    fontWeight: 500),
-                                hintText: LocaleKeys.label_work_accident.tr,
-                                labelText: LocaleKeys.label_work_accident.tr,
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.auto,
-                                labelStyle: AppTheme.getTextStyle(
-                                    AppTheme.getThemeFromThemeMode()
-                                        .textTheme
-                                        .subtitle2,
-                                    fontWeight: 800,
-                                    color: AppTheme.getThemeFromThemeMode()
-                                        .colorScheme
-                                        .onBackground),
-                                prefixStyle: AppTheme.getTextStyle(
-                                    AppTheme.getThemeFromThemeMode()
-                                        .textTheme
-                                        .subtitle2,
-                                    letterSpacing: 0.1,
-                                    color: AppTheme.getThemeFromThemeMode()
-                                        .colorScheme
-                                        .onBackground,
-                                    fontWeight: 500),
-                                border: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8.0),
-                                    ),
-                                    borderSide: BorderSide.none),
-                                enabledBorder: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8.0),
-                                    ),
-                                    borderSide: BorderSide.none),
-                                focusedBorder: const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(8.0),
-                                    ),
-                                    borderSide: BorderSide.none),
-                                filled: true,
-                                fillColor: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .background,
-                                prefixIcon: Icon(
-                                  FontAwesomeIcons.userInjured,
-                                  size: 22,
-                                  color: AppTheme.getThemeFromThemeMode()
-                                      .colorScheme
-                                      .onBackground
-                                      .withAlpha(200),
-                                ),
-                                isDense: true,
-                                contentPadding: const EdgeInsets.all(0),
-                              ),
-                            ),
-                            items: [
-                              // LocaleKeys.label_work_accident.tr,
-                              LocaleKeys.label_yes.tr,
-                              LocaleKeys.label_no.tr,
-                            ],
-                            onChanged: (value) {
-                              // controller.changeIsAWorkAccident(value!);
-                            },
-                            selectedItem: LocaleKeys.label_work_accident.tr),
-                      ),
-                      Container(
                         width: double.infinity,
-                        margin: const EdgeInsets.symmetric(vertical: 8),
                         child: TextFormField(
-                          onTap: () => showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext buildContext) {
-                                print('object');
-                                // controller.fileToUpload = "sickLeave";
-                                return Container();
-                                // return const PickImageBottomSheet();
-                              }),
-                          readOnly: true,
-                          // controller: controller.sickLeaveFileController,
+                          initialValue: product!.genericName,
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "null";
+                          //   }
+                          // },
+                          // controller: controller.numberOfDaysController,
                           style: AppTheme.getTextStyle(
                               AppTheme.getThemeFromThemeMode()
                                   .textTheme
                                   .bodyText2,
-                              height: 2,
+                              // height: 2,
                               letterSpacing: 0.1,
                               color: AppTheme.getThemeFromThemeMode()
                                   .colorScheme
@@ -514,10 +568,9 @@ class ProductInfoWidget extends GetView<HomeController> {
                                     .colorScheme
                                     .onBackground,
                                 fontWeight: 500),
-                            hintText: LocaleKeys.label_sickleave_document.tr,
-
-                            labelText: LocaleKeys.label_sickleave_document.tr,
+                            hintText: LocaleKeys.label_product_arabic_name.tr,
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: LocaleKeys.label_product_arabic_name.tr,
                             labelStyle: AppTheme.getTextStyle(
                                 AppTheme.getThemeFromThemeMode()
                                     .textTheme
@@ -555,15 +608,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                                 .colorScheme
                                 .background,
                             prefixIcon: Icon(
-                              MdiIcons.fileImage,
-                              size: 22,
-                              color: AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground
-                                  .withAlpha(200),
-                            ),
-                            suffixIcon: Icon(
-                              MdiIcons.fileUpload,
+                              MdiIcons.tag,
                               size: 22,
                               color: AppTheme.getThemeFromThemeMode()
                                   .colorScheme
@@ -573,7 +618,179 @@ class ProductInfoWidget extends GetView<HomeController> {
                             isDense: true,
                             contentPadding: const EdgeInsets.all(0),
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.sentences,
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        width: double.infinity,
+                        child: TextFormField(
+                          initialValue: product!.categories.toString(),
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "null";
+                          //   }
+                          // },
+                          // controller: controller.numberOfDaysController,
+                          style: AppTheme.getTextStyle(
+                              AppTheme.getThemeFromThemeMode()
+                                  .textTheme
+                                  .bodyText2,
+                              // height: 2,
+                              letterSpacing: 0.1,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onBackground,
+                              fontWeight: 500),
+                          decoration: InputDecoration(
+                            // prefixText: "+91 ",
+                            hintStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                letterSpacing: 0.1,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground,
+                                fontWeight: 500),
+                            hintText: LocaleKeys.label_category.tr,
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: LocaleKeys.label_category.tr,
+                            labelStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                fontWeight: 800,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground),
+                            prefixStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                letterSpacing: 0.1,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground,
+                                fontWeight: 500),
+                            border: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            enabledBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            focusedBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            filled: true,
+                            fillColor: AppTheme.getThemeFromThemeMode()
+                                .colorScheme
+                                .background,
+                            prefixIcon: Icon(
+                              MdiIcons.viewList,
+                              size: 22,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onBackground
+                                  .withAlpha(200),
+                            ),
+                            isDense: true,
+                            contentPadding: const EdgeInsets.all(0),
+                          ),
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.sentences,
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        width: double.infinity,
+                        child: TextFormField(
+                          initialValue: product!.quantity.toString(),
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "null";
+                          //   }
+                          // },
+                          // controller: controller.numberOfDaysController,
+                          style: AppTheme.getTextStyle(
+                              AppTheme.getThemeFromThemeMode()
+                                  .textTheme
+                                  .bodyText2,
+                              // height: 2,
+                              letterSpacing: 0.1,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onBackground,
+                              fontWeight: 500),
+                          decoration: InputDecoration(
+                            // prefixText: "+91 ",
+                            hintStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                letterSpacing: 0.1,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground,
+                                fontWeight: 500),
+                            hintText: LocaleKeys.label_unity.tr,
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            labelText: LocaleKeys.label_unity.tr,
+                            labelStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                fontWeight: 800,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground),
+                            prefixStyle: AppTheme.getTextStyle(
+                                AppTheme.getThemeFromThemeMode()
+                                    .textTheme
+                                    .subtitle2,
+                                letterSpacing: 0.1,
+                                color: AppTheme.getThemeFromThemeMode()
+                                    .colorScheme
+                                    .onBackground,
+                                fontWeight: 500),
+                            border: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            enabledBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            focusedBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
+                                borderSide: BorderSide.none),
+                            filled: true,
+                            fillColor: AppTheme.getThemeFromThemeMode()
+                                .colorScheme
+                                .background,
+                            prefixIcon: Icon(
+                              MdiIcons.tapeMeasure,
+                              size: 22,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onBackground
+                                  .withAlpha(200),
+                            ),
+                            isDense: true,
+                            contentPadding: const EdgeInsets.all(0),
+                          ),
+                          keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences,
                         ),
                       ),
@@ -683,416 +900,6 @@ class ProductInfoWidget extends GetView<HomeController> {
                 ),
               ),
               FxSpacing.height(24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        child: Text(
-                          LocaleKeys.label_address_during_sickleave.tr,
-                          style: AppTheme.getTextStyle(
-                              AppTheme.getThemeFromThemeMode()
-                                  .textTheme
-                                  .subtitle2,
-                              fontWeight: 700),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        width: double.infinity,
-                        child: TextFormField(
-                          initialValue: product!.categories,
-                          // controller: controller.addressController,
-                          style: AppTheme.getTextStyle(
-                              AppTheme.getThemeFromThemeMode()
-                                  .textTheme
-                                  .bodyText2,
-                              height: 2,
-                              letterSpacing: 0.1,
-                              color: AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground,
-                              fontWeight: 500),
-                          decoration: InputDecoration(
-                            // prefixText: "+91 ",
-                            hintStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                letterSpacing: 0.1,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground,
-                                fontWeight: 500),
-
-                            hintText: LocaleKeys.label_address.tr,
-
-                            labelText: LocaleKeys.label_address.tr,
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            labelStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                fontWeight: 800,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground),
-                            prefixStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                letterSpacing: 0.1,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground,
-                                fontWeight: 500),
-                            border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            enabledBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            focusedBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            filled: true,
-                            fillColor: AppTheme.getThemeFromThemeMode()
-                                .colorScheme
-                                .background,
-                            prefixIcon: Icon(
-                              MdiIcons.mapMarkerAccount,
-                              size: 22,
-                              color: AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground
-                                  .withAlpha(200),
-                            ),
-                            isDense: true,
-                            contentPadding: const EdgeInsets.all(0),
-                          ),
-                          keyboardType: TextInputType.text,
-                          textCapitalization: TextCapitalization.sentences,
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            height: 8,
-                          ),
-                          // DropdownSearch<Commune?>(
-                          //   dropDownButton: Icon(
-                          //     MdiIcons.menuDown,
-                          //     color: AppTheme.getThemeFromThemeMode()
-                          //         .colorScheme
-                          //         .onBackground,
-                          //   ),
-                          //   onChanged: (value) => controller
-                          //       .changeCommune(value!.code.toString()),
-                          //   showSearchBox: true,
-                          //   dropdownBuilder: (context, selectedItem) => Text(
-                          //       selectedItem.toString(),
-                          //       style: AppTheme.getTextStyle(
-                          //           AppTheme.getThemeFromThemeMode()
-                          //               .textTheme
-                          //               .subtitle2,
-                          //           height: 1.2)),
-                          //   popupItemBuilder: (context, item, isSelected) =>
-                          //       Container(
-                          //     margin: const EdgeInsets.symmetric(
-                          //         vertical: 5, horizontal: 16),
-                          //     child: item != null
-                          //         ? Text(
-                          //             item.toString(),
-                          //             style: AppTheme.getTextStyle(
-                          //                 AppTheme.getThemeFromThemeMode()
-                          //                     .textTheme
-                          //                     .bodyText1,
-                          //                 color: isSelected
-                          //                     ? AppTheme.getThemeFromThemeMode()
-                          //                         .colorScheme
-                          //                         .primary
-                          //                     : AppTheme.getThemeFromThemeMode()
-                          //                         .colorScheme
-                          //                         .onBackground,
-                          //                 height: 2),
-                          //           )
-                          //         : null,
-                          //   ),
-                          //   maxHeight: 200,
-                          //   mode: Mode.MENU,
-                          //   items: controller.communesByWilaya,
-                          //   itemAsString: (item) => item.toString(),
-                          //   dropdownSearchDecoration: InputDecoration(
-                          //     // prefixText: "+91 ",
-                          //     hintStyle: AppTheme.getTextStyle(
-                          //         AppTheme.getThemeFromThemeMode()
-                          //             .textTheme
-                          //             .subtitle2,
-                          //         letterSpacing: 0.1,
-                          //         color: AppTheme.getThemeFromThemeMode()
-                          //             .colorScheme
-                          //             .onBackground,
-                          //         fontWeight: 500),
-
-                          //     hintText: LocaleKeys.label_commune.tr,
-
-                          //     labelText: LocaleKeys.label_commune.tr,
-                          //     floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          //     labelStyle: AppTheme.getTextStyle(
-                          //         AppTheme.getThemeFromThemeMode()
-                          //             .textTheme
-                          //             .subtitle2,
-                          //         fontWeight: 800,
-                          //         color: AppTheme.getThemeFromThemeMode()
-                          //             .colorScheme
-                          //             .onBackground),
-                          //     prefixStyle: AppTheme.getTextStyle(
-                          //         AppTheme.getThemeFromThemeMode()
-                          //             .textTheme
-                          //             .subtitle2,
-                          //         letterSpacing: 0.1,
-                          //         color: AppTheme.getThemeFromThemeMode()
-                          //             .colorScheme
-                          //             .onBackground,
-                          //         fontWeight: 500),
-                          //     border: const OutlineInputBorder(
-                          //         borderRadius: BorderRadius.all(
-                          //           Radius.circular(8.0),
-                          //         ),
-                          //         borderSide: BorderSide.none),
-                          //     enabledBorder: const OutlineInputBorder(
-                          //         borderRadius: BorderRadius.all(
-                          //           Radius.circular(8.0),
-                          //         ),
-                          //         borderSide: BorderSide.none),
-                          //     focusedBorder: const OutlineInputBorder(
-                          //         borderRadius: BorderRadius.all(
-                          //           Radius.circular(8.0),
-                          //         ),
-                          //         borderSide: BorderSide.none),
-                          //     filled: true,
-                          //     fillColor: AppTheme.getThemeFromThemeMode()
-                          //         .colorScheme
-                          //         .background,
-                          //     prefixIcon: Icon(
-                          //       MdiIcons.selectMarker,
-                          //       size: 22,
-                          //       color: AppTheme.getThemeFromThemeMode()
-                          //           .colorScheme
-                          //           .onBackground
-                          //           .withAlpha(200),
-                          //     ),
-                          //     isDense: true,
-                          //     contentPadding: const EdgeInsets.all(0),
-                          //   ),
-                          //   // showSelectedItems: controller.communes.isNotEmpty,
-                          //   selectedItem: controller.communesByWilaya.isEmpty
-                          //       ? controller.emptyCommune
-                          //       : controller.communesByWilaya.first,
-                          // ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              FxSpacing.height(24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        child: Text(
-                          LocaleKeys.label_doctor_details.tr,
-                          style: AppTheme.getTextStyle(
-                              AppTheme.getThemeFromThemeMode()
-                                  .textTheme
-                                  .subtitle2,
-                              fontWeight: 700),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        width: double.infinity,
-                        child: TextFormField(
-                          // controller: controller.doctorsLastNameController,
-                          style: AppTheme.getTextStyle(
-                              AppTheme.getThemeFromThemeMode()
-                                  .textTheme
-                                  .bodyText2,
-                              height: 2,
-                              letterSpacing: 0.1,
-                              color: AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground,
-                              fontWeight: 500),
-                          decoration: InputDecoration(
-                            // prefixText: "+91 ",
-                            hintStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                letterSpacing: 0.1,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground,
-                                fontWeight: 500),
-
-                            hintText: LocaleKeys.label_doctor_lastname.tr,
-
-                            labelText: LocaleKeys.label_doctor_lastname.tr,
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            labelStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                fontWeight: 800,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground),
-                            prefixStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                letterSpacing: 0.1,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground,
-                                fontWeight: 500),
-                            border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            enabledBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            focusedBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            filled: true,
-                            fillColor: AppTheme.getThemeFromThemeMode()
-                                .colorScheme
-                                .background,
-                            prefixIcon: Icon(
-                              MdiIcons.doctor,
-                              size: 22,
-                              color: AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground
-                                  .withAlpha(200),
-                            ),
-                            isDense: true,
-                            contentPadding: const EdgeInsets.all(0),
-                          ),
-                          keyboardType: TextInputType.text,
-                          textCapitalization: TextCapitalization.sentences,
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        width: double.infinity,
-                        child: TextFormField(
-                          // controller: controller.doctorsFirstNameController,
-                          style: AppTheme.getTextStyle(
-                              AppTheme.getThemeFromThemeMode()
-                                  .textTheme
-                                  .bodyText2,
-                              height: 2,
-                              letterSpacing: 0.1,
-                              color: AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground,
-                              fontWeight: 500),
-                          decoration: InputDecoration(
-                            // prefixText: "+91 ",
-                            hintStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                letterSpacing: 0.1,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground,
-                                fontWeight: 500),
-
-                            hintText: LocaleKeys.label_doctor_firstname.tr,
-
-                            labelText: LocaleKeys.label_doctor_firstname.tr,
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            labelStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                fontWeight: 800,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground),
-                            prefixStyle: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .subtitle2,
-                                letterSpacing: 0.1,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onBackground,
-                                fontWeight: 500),
-                            border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            enabledBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            focusedBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
-                                borderSide: BorderSide.none),
-                            filled: true,
-                            fillColor: AppTheme.getThemeFromThemeMode()
-                                .colorScheme
-                                .background,
-                            prefixIcon: Icon(
-                              MdiIcons.doctor,
-                              size: 22,
-                              color: AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground
-                                  .withAlpha(200),
-                            ),
-                            isDense: true,
-                            contentPadding: const EdgeInsets.all(0),
-                          ),
-                          keyboardType: TextInputType.text,
-                          textCapitalization: TextCapitalization.sentences,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              FxSpacing.height(24),
               Center(
                 child: Container(
                   margin: const EdgeInsets.only(top: 16),
@@ -1106,10 +913,10 @@ class ProductInfoWidget extends GetView<HomeController> {
                           borderRadiusAll: 4,
                           elevation: 0,
                           onPressed: () {
-                            controller.showConfirmDialog();
+                            // controller.showConfirmDialog();
                           },
                           child: Text(
-                            LocaleKeys.label_continue.tr,
+                            LocaleKeys.label_add.tr,
                             style: AppTheme.getTextStyle(
                                 AppTheme.getThemeFromThemeMode()
                                     .textTheme

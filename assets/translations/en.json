@@ -246,5 +246,16 @@
   "error_doctor_names_french": "Please write the doctor's first and last names in latin letters.",
   "notification_aid_fitr": "The National Social Insurance Fund wishes you Aid Mubarak",
   "error_single_message_per_day": "You have the right to send only one request per day (same service)",
-  "notification_new_version": "A new version of EL HANAA is available on Google Play"
+  "notification_new_version": "A new version of EL HANAA is available on Google Play",
+  "label_product_info": "Product information",
+  "label_product_name": "Product name",
+  "label_category": "Category",
+  "label_unity": "Unit",
+  "label_product_arabic_name": "Product name in Arabic",
+  "label_add": "Add",
+  "label_add_product": "Add a product",
+  "label_search_product": "Search a product",
+  "label_manual": "Manual",
+  "label_product_image": "Product image",
+  "label_brand": "Brand name"
 }
