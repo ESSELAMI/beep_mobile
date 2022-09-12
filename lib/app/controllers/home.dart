@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class HomeController extends BaseHomeController {
+class HomeController extends BaseHomeController
+    with GetSingleTickerProviderStateMixin {
   bool isLoading = false;
   bool isVisible = false;
-
+  TabController? tabController;
+  int currentIndex = 0;
   bool flash = false;
   late User user = User();
 
@@ -39,8 +41,26 @@ class HomeController extends BaseHomeController {
     Get.rootDelegate.offNamed(thenTo ?? Routes.SCANNER);
   }
 
+  handleTabSelection() {
+    currentIndex = tabController!.index;
+    change(currentIndex, status: RxStatus.success());
+  }
+
   @override
   void onInit() async {
+    tabController = TabController(
+        length: 4,
+        vsync: this,
+        animationDuration: const Duration(milliseconds: 1));
+    tabController!.addListener(handleTabSelection);
+    // tabController!.animation!.addListener(() {
+    //   final aniValue = tabController!.animation!.value;
+    //   if (aniValue - currentIndex > 0.5) {
+    //     currentIndex = currentIndex + 1;
+    //   } else if (aniValue - currentIndex < -0.5) {
+    //     currentIndex = currentIndex - 1;
+    //   }
+    // });
     // isVisible = false;
     // NotificationService _notificationService = NotificationService();
     // user.localSave()
