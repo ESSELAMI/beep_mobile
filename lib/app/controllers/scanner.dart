@@ -1,19 +1,72 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:beep_mobile/app/models/user/user.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
+import 'package:beep_mobile/app/views/screens/home/add_product.dart';
 import 'package:beep_mobile/app/views/screens/home/components/dialogs/confirm_close_app_dialog.dart';
-import 'package:beep_mobile/base/controllers/home.dart';
+import 'package:beep_mobile/app/views/screens/home/components/dialogs/product_dialog.dart';
+import 'package:beep_mobile/app/views/widgets/route_builders/slide_left_route.dart';
+import 'package:beep_mobile/base/controllers/scanner.dart';
 // import 'package:beep_mobile/utils/api/notificationsApi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:openfoodfacts/openfoodfacts.dart' hide User;
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class HomeController extends BaseHomeController {
+class ScannerController extends BaseScannerController {
   bool isLoading = false;
   bool isVisible = false;
+  QRViewController? cameraController;
+  AudioPlayer player = AudioPlayer();
+
+  Barcode? result;
 
   bool flash = false;
   late User user = User();
+  Future<Product?>? getProduct(String barcode) async {
+    ProductQueryConfiguration configuration = ProductQueryConfiguration(barcode,
+        language: OpenFoodFactsLanguage.ARABIC, fields: [ProductField.ALL]);
+    ProductResult result = await OpenFoodAPIClient.getProduct(configuration);
+
+    if (result.status == 1) {
+      return result.product;
+    }
+    return null;
+    // return null;
+  }
+
+  onQRViewCreated(QRViewController ctrl) async {
+    // player.setSource(AssetSource('audios/beep.mp3'));
+    cameraController = ctrl;
+
+    cameraController!.scannedDataStream.listen((scanData) async {
+      player.play(AssetSource('audios/beep.mp3'));
+      //  player.play();
+      result = scanData;
+      change(result, status: RxStatus.success());
+      print("==============================>$result");
+      cameraController!.pauseCamera();
+      // await cameraController!.resumeCamera();
+      getProduct(result!.code.toString())!.then((value) {
+        if (value != null) {
+          Navigator.push(
+              Get.context!, SlideLeftRoute(ProductInfoWidget(value)));
+        } else {
+          showDialog(
+              barrierDismissible: false,
+              context: Get.context!,
+              builder: (BuildContext context) => const ProductDialog(null));
+        }
+      });
+    });
+  }
+
+  flashToggle() async {
+    await cameraController!.toggleFlash();
+    flash = !flash;
+    change(flash, status: RxStatus.success());
+  }
 
   changePage(String page) {
     final thenTo =
@@ -33,14 +86,10 @@ class HomeController extends BaseHomeController {
     Get.rootDelegate.offNamed(thenTo ?? Routes.PRESCRIPTION);
   }
 
-  goToScanner() {
-    final thenTo =
-        Get.rootDelegate.currentConfiguration!.currentPage!.parameters?['then'];
-    Get.rootDelegate.offNamed(thenTo ?? Routes.SCANNER);
-  }
-
   @override
   void onInit() async {
+    // cameraController = QRViewController();
+
     // isVisible = false;
     // NotificationService _notificationService = NotificationService();
     // user.localSave()
@@ -108,7 +157,7 @@ class HomeController extends BaseHomeController {
     //   socket.onDisconnect((_) => print('disconnect'));
     // });
 
-    BackButtonInterceptor.add(myInterceptor, name: "home");
+    BackButtonInterceptor.add(myInterceptor, name: "scanner");
     super.onInit();
   }
 
@@ -147,9 +196,15 @@ class HomeController extends BaseHomeController {
 
   @override
   void onClose() {
-    BackButtonInterceptor.removeByName("home");
+    BackButtonInterceptor.removeByName("scanner");
     isVisible = false;
     change(isVisible, status: RxStatus.empty());
     super.onClose();
+  }
+
+  @override
+  void dispose() {
+    cameraController?.dispose();
+    super.dispose();
   }
 }

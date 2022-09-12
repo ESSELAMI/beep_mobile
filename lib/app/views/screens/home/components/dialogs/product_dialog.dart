@@ -1,4 +1,4 @@
-import 'package:beep_mobile/app/controllers/home.dart';
+import 'package:beep_mobile/app/controllers/scanner.dart';
 import 'package:beep_mobile/app/views/widgets/button/button.dart';
 
 import 'package:beep_mobile/utils/generated/locales.g.dart';
@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 
-class ProductDialog extends GetView<HomeController> {
+class ProductDialog extends GetView<ScannerController> {
   final Product? product;
   const ProductDialog(this.product, {Key? key}) : super(key: key);
 

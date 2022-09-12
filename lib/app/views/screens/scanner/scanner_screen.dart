@@ -1,16 +1,18 @@
-import 'package:beep_mobile/app/views/screens/demande/demande_form.dart';
-import 'package:beep_mobile/base/controllers/demande.dart';
+import 'package:beep_mobile/app/views/screens/scanner/scanner_widget.dart';
+import 'package:beep_mobile/base/controllers/scanner.dart';
 import 'package:beep_mobile/core/screen.dart';
 import 'package:flutter/material.dart';
 
-class DemandeScreen extends Screen<BaseDemandeController> {
+class ScannerScreen extends Screen<BaseScannerController> {
+  ScannerScreen({Key? key}) : super(key: key);
+
   @override
   Widget? desktop() {
     return Row(
-      children: const [
+      children: [
         Expanded(
           child: Card(
-            child: DemandeForm(),
+            child: ScannerWidget(),
           ),
         )
       ],
@@ -24,6 +26,6 @@ class DemandeScreen extends Screen<BaseDemandeController> {
 
   @override
   Widget? phone() {
-    return const DemandeForm();
+    return ScannerWidget();
   }
 }

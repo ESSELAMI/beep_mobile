@@ -1,4 +1,4 @@
-import 'package:beep_mobile/app/controllers/home.dart';
+import 'package:beep_mobile/app/controllers/scanner.dart';
 // import 'package:beep_mobile/app/views/screens/online_requests/sick_leave/components/pick_image_bottom_sheet.dart';
 import 'package:beep_mobile/app/views/widgets/widgets.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 
-class ProductInfoWidget extends GetView<HomeController> {
+class ProductInfoWidget extends GetView<ScannerController> {
   const ProductInfoWidget(this.product, {Key? key}) : super(key: key);
   final Product? product;
   _pickDate(BuildContext context, int index) async {

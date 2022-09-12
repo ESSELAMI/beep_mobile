@@ -27,7 +27,7 @@ abstract class Routes {
   static const CONTACT = '/contact';
   static const QUESTIONS = '/questions';
   static const PREOCCUPATIONS = '/preoccupations';
-  static const CHAT = '/chat';
+  static const SCANNER = '/scanner';
   static String LOGIN_THEN(String afterSuccessfulLogin) =>
       '$LOGIN?then=${Uri.encodeQueryComponent(afterSuccessfulLogin)}';
 }
