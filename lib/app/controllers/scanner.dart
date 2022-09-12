@@ -27,12 +27,19 @@ class ScannerController extends BaseScannerController {
   bool flash = false;
   late User user = User();
   Future<Product?>? getProduct(String barcode) async {
+    ProductResult? result;
+    isLoading = true;
+    change(isLoading, status: RxStatus.success());
     ProductQueryConfiguration configuration = ProductQueryConfiguration(barcode,
         language: OpenFoodFactsLanguage.ARABIC, fields: [ProductField.ALL]);
-    ProductResult result = await OpenFoodAPIClient.getProduct(configuration);
+    await OpenFoodAPIClient.getProduct(configuration).then((value) {
+      result = value;
+      isLoading = false;
+      change(isLoading, status: RxStatus.success());
+    });
 
-    if (result.status == 1) {
-      return result.product;
+    if (result!.status == 1) {
+      return result!.product;
     }
     return null;
     // return null;
