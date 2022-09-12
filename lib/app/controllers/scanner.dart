@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:beep_mobile/app/models/user/user.dart';
@@ -36,9 +38,19 @@ class ScannerController extends BaseScannerController {
     // return null;
   }
 
+  void onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
+    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+    if (!p) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('no Permission')),
+      );
+    }
+  }
+
   onQRViewCreated(QRViewController ctrl) async {
     // player.setSource(AssetSource('audios/beep.mp3'));
     cameraController = ctrl;
+    cameraController!.resumeCamera();
 
     cameraController!.scannedDataStream.listen((scanData) async {
       player.play(AssetSource('audios/beep.mp3'));
@@ -183,15 +195,12 @@ class ScannerController extends BaseScannerController {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    if (isVisible == false) {
-      showConfirmDialog();
-      return true;
-    } else {
-      Navigator.of(Get.context!).pop();
-      isVisible = false;
-      change(isVisible, status: RxStatus.success());
-      return true;
-    }
+    Get.rootDelegate.history.removeLast();
+
+    Get.rootDelegate.offNamed(Get.rootDelegate
+        .history[Get.rootDelegate.history.length - 1].currentPage!.name
+        .toString());
+    return true;
   }
 
   @override

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:beep_mobile/app/controllers/scanner.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
@@ -73,7 +71,7 @@ class ScannerWidget extends GetView<ScannerController> {
                     borderWidth: 5,
                     cutOutSize: scanArea),
                 onPermissionSet: (ctrl, p) =>
-                    _onPermissionSet(context, ctrl, p),
+                    controller.onPermissionSet(context, ctrl, p),
               ),
             ),
 
@@ -162,14 +160,5 @@ class ScannerWidget extends GetView<ScannerController> {
         ),
       ),
     );
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
-    }
   }
 }
