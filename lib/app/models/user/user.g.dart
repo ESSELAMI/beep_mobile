@@ -25,7 +25,6 @@ class UserAdapter extends TypeAdapter<User> {
       ..statusAr = fields[5] as String?
       ..birthDate = fields[6] as String?
       ..statusDate = fields[7] as String?
-      // ..familyMembers = (fields[8] as List?)?.cast<FamilyMember>()
       ..totalFamilyMembers = fields[9] as int?
       ..totalSickLeaves = fields[10] as int?
       ..totalPrescriptions = fields[11] as int?
@@ -49,7 +48,7 @@ class UserAdapter extends TypeAdapter<User> {
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(27)
+      ..writeByte(26)
       ..writeByte(0)
       ..write(obj.frFullName)
       ..writeByte(1)
@@ -66,8 +65,6 @@ class UserAdapter extends TypeAdapter<User> {
       ..write(obj.birthDate)
       ..writeByte(7)
       ..write(obj.statusDate)
-      ..writeByte(8)
-      // ..write(obj.familyMembers)
       ..writeByte(9)
       ..write(obj.totalFamilyMembers)
       ..writeByte(10)

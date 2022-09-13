@@ -1,27 +1,31 @@
-class Product {
-  String? codeBarre;
-  String? nomFr;
-  String? nomAr;
-  String? reference;
-  int? tva;
-  int? idCategorie;
-  int? idUnite;
+import 'package:beep_mobile/base/models/product.dart';
+import 'package:hive/hive.dart';
+part 'product.g.dart';
 
-  Product(
-      {this.codeBarre,
-      this.nomFr,
-      this.nomAr,
-      this.reference,
-      this.tva,
-      this.idCategorie,
-      this.idUnite});
+@HiveType(typeId: 20)
+class Product extends ProductBaseModel with HiveObjectMixin {
+  @HiveField(0)
+  String? codeBarre;
+  @HiveField(1)
+  String? nomFr;
+  @HiveField(2)
+  String? nomAr;
+  @HiveField(3)
+  String? reference;
+  @HiveField(4)
+  String? image;
+  @HiveField(5)
+  int? idCategorie;
+  @HiveField(6)
+  int? idUnite;
+  Product();
 
   Product.fromJson(Map<String, dynamic> json) {
     codeBarre = json['Code_Barre'];
     nomFr = json['nomFr'];
     nomAr = json['nomAr'];
     reference = json['Reference'];
-    tva = json['tva'];
+    image = json['image'];
     idCategorie = json['id_categorie'];
     idUnite = json['id_unite'];
   }
@@ -32,7 +36,7 @@ class Product {
     data['nomFr'] = nomFr;
     data['nomAr'] = nomAr;
     data['Reference'] = reference;
-    data['tva'] = tva;
+    data['image'] = image;
     data['id_categorie'] = idCategorie;
     data['id_unite'] = idUnite;
     return data;
