@@ -1,3 +1,5 @@
+import 'package:beep_mobile/app/models/categorie/categorie.dart';
+import 'package:beep_mobile/app/models/unite/unite.dart';
 import 'package:beep_mobile/base/models/product.dart';
 import 'package:hive/hive.dart';
 part 'product.g.dart';
@@ -5,19 +7,21 @@ part 'product.g.dart';
 @HiveType(typeId: 20)
 class Product extends ProductBaseModel with HiveObjectMixin {
   @HiveField(0)
-  String? codeBarre;
+  String? id;
   @HiveField(1)
-  String? nomFr;
+  String? codeBarre;
   @HiveField(2)
-  String? nomAr;
+  String? nomFr;
   @HiveField(3)
-  String? reference;
+  String? nomAr;
   @HiveField(4)
-  String? image;
+  String? reference;
   @HiveField(5)
-  int? idCategorie;
+  String? image;
   @HiveField(6)
-  int? idUnite;
+  Categorie? categorie;
+  @HiveField(7)
+  Unite? unite;
   Product();
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -26,8 +30,8 @@ class Product extends ProductBaseModel with HiveObjectMixin {
     nomAr = json['nomAr'];
     reference = json['Reference'];
     image = json['image'];
-    idCategorie = json['id_categorie'];
-    idUnite = json['id_unite'];
+    categorie = json['categorie'];
+    unite = json['unite'];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,8 +41,8 @@ class Product extends ProductBaseModel with HiveObjectMixin {
     data['nomAr'] = nomAr;
     data['Reference'] = reference;
     data['image'] = image;
-    data['id_categorie'] = idCategorie;
-    data['id_unite'] = idUnite;
+    data['id_categorie'] = categorie!.id;
+    data['id_unite'] = unite!.id;
     return data;
   }
 }

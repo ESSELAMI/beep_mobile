@@ -1,4 +1,4 @@
-import 'package:beep_mobile/app/models/products/product/product.dart';
+import 'package:beep_mobile/app/models/product/product.dart';
 import 'package:hive/hive.dart';
 
 class ProductLocalService {

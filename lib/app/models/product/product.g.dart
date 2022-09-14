@@ -17,33 +17,36 @@ class ProductAdapter extends TypeAdapter<Product> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Product()
-      ..codeBarre = fields[0] as String?
-      ..nomFr = fields[1] as String?
-      ..nomAr = fields[2] as String?
-      ..reference = fields[3] as String?
-      ..image = fields[4] as String?
-      ..idCategorie = fields[5] as int?
-      ..idUnite = fields[6] as int?;
+      ..id = fields[0] as String?
+      ..codeBarre = fields[1] as String?
+      ..nomFr = fields[2] as String?
+      ..nomAr = fields[3] as String?
+      ..reference = fields[4] as String?
+      ..image = fields[5] as String?
+      ..categorie = fields[6] as Categorie?
+      ..unite = fields[7] as Unite?;
   }
 
   @override
   void write(BinaryWriter writer, Product obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
-      ..write(obj.codeBarre)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.nomFr)
+      ..write(obj.codeBarre)
       ..writeByte(2)
-      ..write(obj.nomAr)
+      ..write(obj.nomFr)
       ..writeByte(3)
-      ..write(obj.reference)
+      ..write(obj.nomAr)
       ..writeByte(4)
-      ..write(obj.image)
+      ..write(obj.reference)
       ..writeByte(5)
-      ..write(obj.idCategorie)
+      ..write(obj.image)
       ..writeByte(6)
-      ..write(obj.idUnite);
+      ..write(obj.categorie)
+      ..writeByte(7)
+      ..write(obj.unite);
   }
 
   @override
