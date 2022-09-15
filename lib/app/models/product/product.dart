@@ -25,6 +25,7 @@ class Product extends ProductBaseModel with HiveObjectMixin {
   Product();
 
   Product.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     codeBarre = json['Code_Barre'];
     nomFr = json['nomFr'];
     nomAr = json['nomAr'];
@@ -36,6 +37,7 @@ class Product extends ProductBaseModel with HiveObjectMixin {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['Code_Barre'] = codeBarre;
     data['nomFr'] = nomFr;
     data['nomAr'] = nomAr;

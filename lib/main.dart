@@ -1,5 +1,6 @@
 import 'package:beep_mobile/app/controllers/auth_controller.dart';
 import 'package:beep_mobile/app/models/center/center.dart';
+import 'package:beep_mobile/app/models/product/product.dart';
 import 'package:beep_mobile/app/models/token/token.dart';
 import 'package:beep_mobile/app/models/user/user.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
@@ -64,6 +65,7 @@ Future<void> main() async {
   // NotificationService().init();
   await Hive.initFlutter();
   Hive.registerAdapter(TokenAdapter());
+  Hive.registerAdapter(ProductAdapter());
   // if (OnBoardingService().first) {
   //   AuthService.to.setFirstTrue();
   //   OnBoardingService().switchOnBoarding();
