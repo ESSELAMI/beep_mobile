@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 class DemandeService extends BaseDemandeService {
   Future<List<Demande>?> getDemandes(String state) async {
     Token? token = await TokenService().getToken();
-    final url = DataApi.demande + state;
+    final url = "DataApi.demande" + state;
 
     try {
       final response = await http.get(

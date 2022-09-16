@@ -13,7 +13,7 @@ class CommuneService extends BaseCommuneService {
   Future<List<Commune>?> getCommunes() async {
     Token? token = await TokenService().getToken();
 
-    final url = DataApi.commune;
+    final url = "DataApi.commune";
     try {
       final response = await http.get(
         Uri.parse(url),

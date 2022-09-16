@@ -11,7 +11,7 @@ class CentreService extends BaseCentreService {
   Future<List<Centre>?> getCentres() async {
     Token? token = await TokenService().getToken();
 
-    final url = DataApi.center;
+    final url = "DataApi.center";
     try {
       final response = await http.get(
         Uri.parse(url),

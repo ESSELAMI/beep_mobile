@@ -14,7 +14,7 @@ class UserService extends BaseTokenService {
   Future<User?> getUserData() async {
     Token? token = await TokenService().getToken();
     if (token != null) {
-      final url = DataApi.userData;
+      final url = "DataApi.userData";
       try {
         final response = await http.get(
           Uri.parse(url),

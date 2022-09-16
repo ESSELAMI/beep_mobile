@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 class PersonService extends BasePersonService {
   Future<List<Person>?> getPersons(String state) async {
     Token? token = await TokenService().getToken();
-    final url = DataApi.person + state;
+    final url = "DataApi.person" + state;
 
     try {
       final response = await http.get(

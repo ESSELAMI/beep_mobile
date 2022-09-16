@@ -16,33 +16,34 @@ class SecurityApi {
   static String updateProfile = '${baseUrl}profil/update';
 }
 
-class DataApi {
-  static String baseUrl =
-      'https://elhanaa.cnas.dz:447/proxy-service/elhanaa-service/api/v1/';
-  // 'http://10.125.1.152:8055/api/v1/';
-  static String qrCode = '${baseUrl}QRCode/assure?codeOfficine=5';
-  static String userData = '${baseUrl}assure';
-  static String dossiersEspece = '${baseUrl}dossiersEspece';
-  static String ordonnances = '${baseUrl}ordonnances';
-  static String ordonnancesByDateDebut = '${baseUrl}ordonnances/dateDebut/';
-  static String prescripteursByWilaya = '${baseUrl}prescripteurs/agences/';
-  static String speciality = '${baseUrl}specialites/all';
-  static String specialityDoctors = '${baseUrl}HanaSpecialiteMedecins/all';
-  static String officine = '${baseUrl}officines/centreStartWith/1';
-  static String center = '${baseUrl}centres/all';
-  static String lieuExercice = '${baseUrl}Lieuexercice/all';
-  static String structureSantes = '${baseUrl}structureSantes/agence/';
-  static String requestSickLeave = '${baseUrl}assure/demandeArretTravail';
-  static String sickLeaveRequests = '${baseUrl}assure/demandeArretTravail/all';
-  static String commune = '${baseUrl}communes/all';
-  static String addPreoccupation = '${baseUrl}accesRequest/add';
-  static String getSickLeaveReciept = '${baseUrl}demandeArretTravail/pdf/';
-  static String getAffiliationDocument = '${baseUrl}attestationAffiliation/pdf';
-  static String requestChifaCard = '${baseUrl}assure/demandeCarte';
-  static String preoccupations = '${baseUrl}questions/all';
-  static String categorie = '${baseUrl}accesRequest/risque';
-  static String person = '${baseUrl}accesRequest/risque';
-  static String demande = '${baseUrl}accesRequest/risque';
-  static String materiel = '${baseUrl}accesRequest/risque';
-  static String userPreoccupations = '${baseUrl}accesRequest/risque';
+class Urls {
+  static String baseUrl = 'https://global.keaa.ml/api/';
+}
+
+class ProductApi {
+  static String products = '${Urls.baseUrl}products';
+  static String findProducts = '${Urls.baseUrl}find';
+  static String creatProduct = '${Urls.baseUrl}creatProduct';
+  static String updateProductByCode = '${Urls.baseUrl}updateProductByCode';
+  static String updateProductById = '${Urls.baseUrl}updateProductById';
+  static String deleteProductById = '${Urls.baseUrl}deleteProductById';
+  static String deleteProductByCode = '${Urls.baseUrl}updateProductById';
+}
+
+class CategoritApi {
+  static String categories = '${Urls.baseUrl}categories';
+  static String findCategorieByName = '${Urls.baseUrl}findCategorieByName';
+  static String findCategorieById = '${Urls.baseUrl}findCategorieById';
+  static String creatCategorie = '${Urls.baseUrl}creatCategorie';
+  static String updateCategorieById = '${Urls.baseUrl}updateCategorieById';
+  static String deleteCategorieById = '${Urls.baseUrl}deleteCategorieById';
+}
+
+class UniteApi {
+  static String unites = '${Urls.baseUrl}unites';
+  static String findUniteByName = '${Urls.baseUrl}findUniteByName';
+  static String findUniteById = '${Urls.baseUrl}findUniteById';
+  static String creatUnite = '${Urls.baseUrl}creatUnite';
+  static String updateUniteById = '${Urls.baseUrl}updateUniteById';
+  static String deleteUniteById = '${Urls.baseUrl}deleteUniteById';
 }

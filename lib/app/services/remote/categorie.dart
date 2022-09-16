@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 class CategorieService extends BaseCategorieService {
   Future<List<Categorie>?> getCategories(String state) async {
     Token? token = await TokenService().getToken();
-    final url = DataApi.categorie + state;
+    final url = "DataApi.categorie" + state;
 
     try {
       final response = await http.get(
