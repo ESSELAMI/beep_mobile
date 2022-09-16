@@ -55,6 +55,7 @@ class HomeController extends BaseHomeController
 
   bool flash = false;
   deleteProduct(int index) {
+    scannedProducts.elementAt(index).delete();
     scannedProducts.removeAt(index);
     change(scannedProducts, status: RxStatus.success());
   }
@@ -85,12 +86,19 @@ class HomeController extends BaseHomeController
     product.nomAr = nomArController.text;
     product.nomFr = nomFrController.text;
 
-    ProductLocalService().saveProduct(product);
-    scannedProducts.add(product);
+    ProductLocalService().saveProduct(product).then((value) {
+      if (value) {
+        scannedProducts.add(product);
+        showSnackBar(
+            LocaleKeys.label_success_title.tr, 'Product added successfully');
+      } else {
+        showSnackBar(
+            LocaleKeys.label_success_title.tr, 'Product already exist');
+      }
+    });
+
     change(scannedProducts, status: RxStatus.success());
 
-    showSnackBar(
-        LocaleKeys.label_success_title.tr, 'Product added successfully');
     await cameraController!.resumeCamera();
     Navigator.pop(Get.context!);
   }
@@ -225,9 +233,12 @@ class HomeController extends BaseHomeController
     unityController = TextEditingController();
     configLoading();
 
-    ProductLocalService()
-        .getProducts()
-        .then((value) => scannedProducts = value!);
+    ProductLocalService().getProducts().then((value) {
+      if (value != null) {
+        scannedProducts.addAll(value);
+        change(scannedProducts, status: RxStatus.success());
+      }
+    });
     change(scannedProducts, status: RxStatus.success());
     // tabController!.animation!.addListener(() {
     //   final aniValue = tabController!.animation!.value;

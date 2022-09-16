@@ -162,7 +162,7 @@ class ProfileController extends BaseProfileController
     Token? token = await TokenService().getToken();
     try {
       final response = await http.get(
-        Uri.parse(DataApi.getAffiliationDocument),
+        Uri.parse("DataApi.getAffiliationDocument"),
         headers: {
           "content-type": "application/json",
           "accept": "*/*",

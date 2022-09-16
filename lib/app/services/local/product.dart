@@ -11,10 +11,18 @@ class ProductLocalService {
     }
   }
 
-  Future<void> saveProduct(Product product) async {
+  Future<bool> saveProduct(Product product) async {
     try {
-      final encryptedBox = await Hive.openBox<Product>("products");
-      await encryptedBox.add(product);
+      final productsBox = await Hive.openBox<Product>("products");
+      print("-------------");
+      var p = productsBox.values
+          .where((element) => product.codeBarre == element.codeBarre);
+      if (p.isEmpty) {
+        await productsBox.add(product);
+        return true;
+      } else {
+        return false;
+      }
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
@@ -22,9 +30,9 @@ class ProductLocalService {
 
   Future<List<Product>?> getProducts() async {
     try {
-      final officineBox = await Hive.openBox<Product>("products");
-      if (officineBox.isNotEmpty) {
-        List<Product> temp = officineBox.values.toList();
+      final productsBox = await Hive.openBox<Product>("products");
+      if (productsBox.isNotEmpty) {
+        List<Product> temp = productsBox.values.toList().cast<Product>();
 
         return temp;
       }
