@@ -118,7 +118,7 @@
   "label_send": "Envoyer",
   "label_sickleave_request": "Demande arrêt travail",
   "label_theme": "Thème",
-  "label_history": "Historique",
+  "label_history": "Historique des produits",
   "label_prescription_date": "Date de facture",
   "label_search": "Recherche",
   "labe_sort": "Trier par",
@@ -257,5 +257,6 @@
   "label_search_product": "Rechercher un produit",
   "label_manual": "Manuel",
   "label_product_image": "Photo du produit",
-  "label_brand": "Marque"
+  "label_brand": "Marque",
+  "label_scan_barcode": "Scanner Code Barre"
 }

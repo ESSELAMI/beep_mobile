@@ -1,14 +1,13 @@
 import 'package:beep_mobile/app/bindings/home.dart';
 import 'package:beep_mobile/app/bindings/login.dart';
 import 'package:beep_mobile/app/bindings/root_binding.dart';
-import 'package:beep_mobile/app/bindings/scanner.dart';
+
 import 'package:beep_mobile/app/bindings/splash.dart';
 import 'package:beep_mobile/app/middlewares/auth_middleware.dart';
 import 'package:beep_mobile/app/views/screens/auth/login/login.dart';
 
 import 'package:beep_mobile/app/views/screens/home/home.dart';
 import 'package:beep_mobile/app/views/screens/root/root_view.dart';
-import 'package:beep_mobile/app/views/screens/scanner/scanner_screen.dart';
 import 'package:beep_mobile/app/views/screens/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -38,12 +37,6 @@ class AppPages {
           page: () => HomeScreen(),
           binding: HomeBindings(),
         ),
-        GetPage(
-            middlewares: [EnsureAuthMiddleware()],
-            name: Routes.SCANNER,
-            page: () => ScannerScreen(),
-            binding: ScannerBindings(),
-            transition: Transition.rightToLeft),
         GetPage(
           middlewares: [EnsureNotAuthedMiddleware()],
           name: Routes.LOGIN,

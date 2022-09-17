@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:beep_mobile/app/models/categorie/categorie.dart';
 import 'package:beep_mobile/app/models/unite/unite.dart';
 import 'package:beep_mobile/base/models/product.dart';
@@ -56,6 +54,10 @@ class Product extends ProductBaseModel with HiveObjectMixin {
 
   List<Product> getListFromJson(List<dynamic> jsonlist) {
     return (jsonlist).map((data) => Product.fromJson(data)).toList();
+  }
+
+  Product getFromJson(List<dynamic> jsonlist) {
+    return (jsonlist).map((data) => Product.fromJson(data)).first;
   }
 
   @override

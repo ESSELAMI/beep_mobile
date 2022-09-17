@@ -1,16 +1,33 @@
 # beep_mobile
 
-A new Flutter project.
+# add splash screen to android an ios
+`flutter pub run flutter_native_splash:create --path=path/to/my/file.yaml `
 
-## Getting Started
+# add launcher icons
+`flutter pub run flutter_launcher_icons:main -f path=path/to/my/file.yaml`
 
-This project is a starting point for a Flutter application.
+Go to android/app/build.gradle and change the minSdkVersion and targetSdkVersion to integer values.
 
-A few resources to get you started if this is your first Flutter project:
+<code> 
+    minSdkVersion 21
+    targetSdkVersion 29
+    versionCode flutterVersionCode.toInteger()
+    versionName flutterVersionName
+</code>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Then do the rest, i.e.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<code>   
+    pub.get -> flutter pub run flutter_launcher_icons:main
+</code>
+
+# translations using get_cli 
+<code>
+get generate locales .\assets\translations\ on  lib\utils\generated
+</code>
+
+# hive generate models 
+<code>
+flutter packages pub run build_runner build --delete-conflicting-outputs
+</code>
+

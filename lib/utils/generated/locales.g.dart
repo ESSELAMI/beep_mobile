@@ -282,6 +282,7 @@ class LocaleKeys {
   static const label_manual = 'label_manual';
   static const label_product_image = 'label_product_image';
   static const label_brand = 'label_brand';
+  static const label_scan_barcode = 'label_scan_barcode';
 }
 
 class Locales {
@@ -411,7 +412,7 @@ class Locales {
     'label_send': 'ارسال',
     'label_sickleave_request': 'طلب عطلة مرضية',
     'label_theme': 'شكل التطبيق',
-    'label_history': 'سجل الأدوية',
+    'label_history': 'سجل المنتوجات',
     'label_prescription_date': 'تاريخ الفاتورة',
     'label_search': 'البحث',
     'labe_sort': 'صنف حسب',
@@ -568,6 +569,7 @@ class Locales {
     'label_manual': 'يدويا',
     'label_product_image': 'صورة المنتوج',
     'label_brand': 'العلامة التجارية',
+    'label_scan_barcode': 'مسح الرمز الشريطى',
   };
   static const en = {
     'app_name': 'EL HANAA APP',
@@ -696,7 +698,7 @@ class Locales {
     'label_send': 'Send',
     'label_sickleave_request': 'Sick leave request',
     'label_theme': 'Theme',
-    'label_history': 'History',
+    'label_history': 'Products History',
     'label_prescription_date': 'Facturation date',
     'label_search': 'Search',
     'labe_sort': 'Sort by',
@@ -855,6 +857,7 @@ class Locales {
     'label_manual': 'Manual',
     'label_product_image': 'Product image',
     'label_brand': 'Brand name',
+    'label_scan_barcode': 'Scan Barcode',
   };
   static const fr = {
     'app_name': 'ESPACE EL HANAA ',
@@ -987,7 +990,7 @@ class Locales {
     'label_send': 'Envoyer',
     'label_sickleave_request': 'Demande arrêt travail',
     'label_theme': 'Thème',
-    'label_history': 'Historique',
+    'label_history': 'Historique des produits',
     'label_prescription_date': 'Date de facture',
     'label_search': 'Recherche',
     'labe_sort': 'Trier par',
@@ -1153,5 +1156,6 @@ class Locales {
     'label_manual': 'Manuel',
     'label_product_image': 'Photo du produit',
     'label_brand': 'Marque',
+    'label_scan_barcode': 'Scanner Code Barre',
   };
 }

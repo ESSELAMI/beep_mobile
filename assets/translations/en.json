@@ -118,7 +118,7 @@
   "label_send": "Send",
   "label_sickleave_request": "Sick leave request",
   "label_theme": "Theme",
-  "label_history": "History",
+  "label_history": "Products History",
   "label_prescription_date": "Facturation date",
   "label_search": "Search",
   "labe_sort": "Sort by",
@@ -257,5 +257,6 @@
   "label_search_product": "Search a product",
   "label_manual": "Manual",
   "label_product_image": "Product image",
-  "label_brand": "Brand name"
+  "label_brand": "Brand name",
+  "label_scan_barcode": "Scan Barcode"
 }

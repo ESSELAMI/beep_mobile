@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:beep_mobile/app/models/product/product.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
 import 'package:beep_mobile/app/services/local/product.dart';
+import 'package:beep_mobile/app/services/remote/product.dart';
 import 'package:beep_mobile/app/views/screens/home/add_product.dart';
 import 'package:beep_mobile/app/views/screens/home/components/dialogs/confirm_close_app_dialog.dart';
-import 'package:beep_mobile/app/views/screens/home/components/dialogs/product_dialog.dart';
 import 'package:beep_mobile/app/views/screens/home/history_widget.dart';
 import 'package:beep_mobile/app/views/screens/scanner/scanner_widget.dart';
 import 'package:beep_mobile/app/views/widgets/route_builders/slide_left_route.dart';
@@ -19,12 +20,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:openfoodfacts/openfoodfacts.dart';
+
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:beep_mobile/app/models/product/product.dart' as local_product;
 
 class HomeController extends BaseHomeController
     with GetSingleTickerProviderStateMixin {
+  Product scannedProduct = Product();
   List<local_product.Product> scannedProducts = [];
   void configLoading() {
     EasyLoading.instance
@@ -44,6 +46,7 @@ class HomeController extends BaseHomeController
   bool isLoading = false;
   bool isVisible = false;
   late TextEditingController barcodeController;
+  late TextEditingController searchBarcodeController;
   late TextEditingController nomFrController;
   late TextEditingController nomArController;
   late TextEditingController categoryController;
@@ -103,8 +106,36 @@ class HomeController extends BaseHomeController
     Navigator.pop(Get.context!);
   }
 
+  // Future<Product?>? getProduct(String barcode) async {
+  //   ProductResult? result;
+  //   isLoading = true;
+  //   EasyLoading.show(
+  //       indicator: CircularProgressIndicator(
+  //     color: AppTheme.getThemeFromThemeMode().primaryColor,
+  //   ));
+
+  //   change(isLoading, status: RxStatus.success());
+  //   ProductQueryConfiguration configuration = ProductQueryConfiguration(barcode,
+  //       language: OpenFoodFactsLanguage.ARABIC, fields: [ProductField.ALL]);
+  //   await OpenFoodAPIClient.getProduct(configuration).then((value) {
+  //     result = value;
+  //     barcodeController.text = result!.barcode.toString();
+
+  //     nomFrController.text = result!.barcode.toString();
+
+  //     isLoading = false;
+  //     EasyLoading.dismiss();
+  //     change(isLoading, status: RxStatus.success());
+  //   });
+
+  //   if (result!.status == 1) {
+  //     return result!.product;
+  //   }
+  //   return null;
+  //   // return null;
+  // }
   Future<Product?>? getProduct(String barcode) async {
-    ProductResult? result;
+    Product? result;
     isLoading = true;
     EasyLoading.show(
         indicator: CircularProgressIndicator(
@@ -112,23 +143,21 @@ class HomeController extends BaseHomeController
     ));
 
     change(isLoading, status: RxStatus.success());
-    ProductQueryConfiguration configuration = ProductQueryConfiguration(barcode,
-        language: OpenFoodFactsLanguage.ARABIC, fields: [ProductField.ALL]);
-    await OpenFoodAPIClient.getProduct(configuration).then((value) {
-      result = value;
-      barcodeController.text = result!.barcode.toString();
 
-      nomFrController.text = result!.barcode.toString();
+    await ProductService().getProduct(barcode).then((value) {
+      scannedProduct = value!;
+      print('result ========$result');
+      barcodeController.text = scannedProduct.codeBarre.toString();
+
+      nomFrController.text = scannedProduct.nomFr.toString();
 
       isLoading = false;
       EasyLoading.dismiss();
       change(isLoading, status: RxStatus.success());
+      Navigator.push(Get.context!, SlideLeftRoute(const ProductInfoWidget()));
     });
 
-    if (result!.status == 1) {
-      return result!.product;
-    }
-    return null;
+    return result;
     // return null;
   }
 
@@ -155,15 +184,9 @@ class HomeController extends BaseHomeController
       cameraController!.pauseCamera();
       // await cameraController!.resumeCamera();
       getProduct(result!.code.toString())!.then((value) {
-        if (value != null) {
-          Navigator.push(
-              Get.context!, SlideLeftRoute(ProductInfoWidget(value)));
-        } else {
-          showDialog(
-              barrierDismissible: false,
-              context: Get.context!,
-              builder: (BuildContext context) => const ProductDialog(null));
-        }
+        // if (value != null) {
+        // Navigator.push(Get.context!, SlideLeftRoute(ProductInfoWidget(value!)));
+        // }
       });
     });
   }
@@ -240,6 +263,7 @@ class HomeController extends BaseHomeController
     nomArController = TextEditingController();
     categoryController = TextEditingController();
     unityController = TextEditingController();
+    searchBarcodeController = TextEditingController();
     configLoading();
 
     change(scannedProducts, status: RxStatus.success());

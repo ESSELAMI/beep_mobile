@@ -7,11 +7,10 @@ import 'package:beep_mobile/utils/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:openfoodfacts/openfoodfacts.dart';
 
 class ProductInfoWidget extends GetView<HomeController> {
-  const ProductInfoWidget(this.product, {Key? key}) : super(key: key);
-  final Product? product;
+  const ProductInfoWidget({Key? key}) : super(key: key);
+
   _pickDate(BuildContext context, int index) async {
     await showDatePicker(
       fieldLabelText: "mm/dd/yyyy",
@@ -28,7 +27,6 @@ class ProductInfoWidget extends GetView<HomeController> {
 // Create a key
   @override
   Widget build(BuildContext context) {
-    print(product!.toJson());
     return controller.obx(
       (state) => Scaffold(
         appBar: AppBar(
@@ -165,7 +163,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          initialValue: product!.brands,
+                          // initialValue: product!.codeBarre,
                           // validator: (value) {
                           //   if (value!.isEmpty) {
                           //     return "null";
@@ -425,7 +423,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          initialValue: product!.categories.toString(),
+                          // initialValue: product!.categorie!.nomFr,
                           // validator: (value) {
                           //   if (value!.isEmpty) {
                           //     return "null";
@@ -511,7 +509,8 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          initialValue: product!.quantity.toString(),
+                          // initialValue:
+                          //     controller.scannedProduct.unite!.abreviation,
                           style: AppTheme.getTextStyle(
                               AppTheme.getThemeFromThemeMode()
                                   .textTheme

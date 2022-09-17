@@ -118,7 +118,7 @@
   "label_send": "ارسال",
   "label_sickleave_request": "طلب عطلة مرضية",
   "label_theme": "شكل التطبيق",
-  "label_history": "سجل الأدوية",
+  "label_history": "سجل المنتوجات",
   "label_prescription_date": "تاريخ الفاتورة",
   "label_search": "البحث",
   "labe_sort": "صنف حسب",
@@ -257,5 +257,6 @@
   "label_search_product": "البحث عن منتوج",
   "label_manual": "يدويا",
   "label_product_image": "صورة المنتوج",
-  "label_brand": "العلامة التجارية"
+  "label_brand": "العلامة التجارية",
+  "label_scan_barcode": "مسح الرمز الشريطى"
 }

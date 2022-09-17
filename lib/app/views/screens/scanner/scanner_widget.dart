@@ -1,5 +1,7 @@
 import 'package:beep_mobile/app/controllers/home.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
+import 'package:beep_mobile/app/views/screens/scanner/components/product_dialog.dart';
+import 'package:beep_mobile/utils/generated/locales.g.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,16 +44,21 @@ class ScannerWidget extends GetView<HomeController> {
                 size: 26,
               ),
             ),
-            title: Text("Scan Barcode",
+            title: Text(LocaleKeys.label_scan_barcode.tr,
                 style: AppTheme.getTextStyle(
                     AppTheme.getThemeFromThemeMode().textTheme.titleLarge,
                     fontWeight: 700)),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
-                  // handle the press
+                  controller.searchBarcodeController.clear();
+                  showDialog(
+                      barrierDismissible: true,
+                      context: Get.context!,
+                      builder: (BuildContext context) =>
+                          const ProductDialog(null));
                 },
-                child: Text('Manual',
+                child: Text(LocaleKeys.label_manual.tr,
                     style: AppTheme.getTextStyle(
                         AppTheme.getThemeFromThemeMode().textTheme.titleLarge,
                         fontWeight: 700)),
