@@ -8,6 +8,7 @@ import 'package:beep_mobile/app/services/local/auth_service.dart';
 import 'package:beep_mobile/app/services/local/locale_service.dart';
 import 'package:beep_mobile/app/services/local/theme_service.dart';
 import 'package:beep_mobile/app/services/local/token.dart';
+import 'package:beep_mobile/app/services/remote/product.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
 
@@ -81,6 +82,8 @@ Future<void> main() async {
       .then((_) {
     runApp(const MyApp());
   });
+
+  ProductService().getProducts().then((value) => print(value));
 }
 
 Future<void> initialization(BuildContext context) async {

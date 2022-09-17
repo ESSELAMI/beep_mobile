@@ -28,6 +28,18 @@ class ProductLocalService {
     }
   }
 
+  Future<bool> saveProducts(List<Product> products) async {
+    try {
+      final productsBox = await Hive.openBox<Product>("products");
+      print("-------------");
+
+      await productsBox.addAll(products);
+      return true;
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   Future<List<Product>?> getProducts() async {
     try {
       final productsBox = await Hive.openBox<Product>("products");

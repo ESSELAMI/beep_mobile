@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:beep_mobile/app/models/categorie/categorie.dart';
 import 'package:beep_mobile/app/models/unite/unite.dart';
 import 'package:beep_mobile/base/models/product.dart';
@@ -7,7 +9,7 @@ part 'product.g.dart';
 @HiveType(typeId: 20)
 class Product extends ProductBaseModel with HiveObjectMixin {
   @HiveField(0)
-  String? id;
+  int? id;
   @HiveField(1)
   String? codeBarre;
   @HiveField(2)
@@ -46,5 +48,14 @@ class Product extends ProductBaseModel with HiveObjectMixin {
     data['id_categorie'] = categorie!.id;
     data['id_unite'] = unite!.id;
     return data;
+  }
+
+  List<Product> getListFromJson(List<dynamic> jsonlist) {
+    return (jsonlist).map((data) => Product.fromJson(data)).toList();
+  }
+
+  @override
+  String toString() {
+    return 'Product{id: $id, codeBarre: $codeBarre, nomFr: $nomFr, nomAr: $nomAr, reference: $reference, image: $image, categorie: $categorie, unite: $unite}';
   }
 }
