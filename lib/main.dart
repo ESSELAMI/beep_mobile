@@ -6,6 +6,7 @@ import 'package:beep_mobile/app/models/user/user.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
 import 'package:beep_mobile/app/services/local/auth_service.dart';
 import 'package:beep_mobile/app/services/local/locale_service.dart';
+import 'package:beep_mobile/app/services/local/product.dart';
 import 'package:beep_mobile/app/services/local/theme_service.dart';
 import 'package:beep_mobile/app/services/local/token.dart';
 import 'package:beep_mobile/app/services/remote/product.dart';
@@ -83,7 +84,9 @@ Future<void> main() async {
     runApp(const MyApp());
   });
 
-  ProductService().getProducts().then((value) => print(value));
+  ProductService()
+      .getProducts()
+      .then((value) => ProductLocalService().saveProducts(value!));
 }
 
 Future<void> initialization(BuildContext context) async {
