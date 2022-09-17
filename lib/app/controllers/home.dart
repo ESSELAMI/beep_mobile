@@ -222,6 +222,15 @@ class HomeController extends BaseHomeController
   handleTabSelection(int index) {
     currentIndex = index;
     change(currentIndex, status: RxStatus.success());
+    if (index == 1) {
+      ProductLocalService().getProducts().then((value) {
+        print('xcwxcwxcw $value.length');
+        if (value != null) {
+          scannedProducts.addAll(value);
+          change(scannedProducts, status: RxStatus.success());
+        }
+      });
+    }
   }
 
   @override
@@ -233,12 +242,6 @@ class HomeController extends BaseHomeController
     unityController = TextEditingController();
     configLoading();
 
-    ProductLocalService().getProducts().then((value) {
-      if (value != null) {
-        scannedProducts.addAll(value);
-        change(scannedProducts, status: RxStatus.success());
-      }
-    });
     change(scannedProducts, status: RxStatus.success());
     // tabController!.animation!.addListener(() {
     //   final aniValue = tabController!.animation!.value;

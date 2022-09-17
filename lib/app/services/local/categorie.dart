@@ -1,27 +1,27 @@
 import 'dart:convert';
 
-import 'package:beep_mobile/app/models/product/product.dart';
+import 'package:beep_mobile/app/models/categorie/categorie.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 
-class ProductLocalService {
-  clearProduct() async {
+class CategorieLocalService {
+  clearCategorie() async {
     try {
-      final productBox = await Hive.openBox<Product>("products");
-      productBox.clear();
+      final categorieBox = await Hive.openBox<Categorie>("categories");
+      categorieBox.clear();
     } on Exception {
       throw Exception();
     }
   }
 
-  Future<bool> saveProduct(Product product) async {
+  Future<bool> saveCategorie(Categorie categorie) async {
     try {
-      final productsBox = await Hive.openBox<Product>("products");
+      final categoriesBox = await Hive.openBox<Categorie>("categories");
 
-      var p = productsBox.values
-          .where((element) => product.codeBarre == element.codeBarre);
+      var p = categoriesBox.values
+          .where((element) => categorie.nomFr == element.nomFr);
       if (p.isEmpty) {
-        await productsBox.add(product);
+        await categoriesBox.add(categorie);
         return true;
       } else {
         return false;
@@ -31,18 +31,18 @@ class ProductLocalService {
     }
   }
 
-  Future<bool> saveProducts(List<Product> products) async {
+  Future<bool> saveCategories(List<Categorie> categories) async {
     try {
-      final productsBox = await Hive.openBox<Product>("products");
+      final categoriesBox = await Hive.openBox<Categorie>("categories");
 
-      await productsBox.addAll(products);
+      await categoriesBox.addAll(categories);
       return true;
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
   }
 
-  Future<bool> saveProductsSecure(List<Product> products) async {
+  Future<bool> saveCategoriesSecure(List<Categorie> categories) async {
     try {
       const secureStorage = FlutterSecureStorage();
       // if key not exists return null
@@ -57,30 +57,30 @@ class ProductLocalService {
       final key1 = await secureStorage.read(key: 'key');
       final encryptionKey1 = base64Url.decode(key1!);
 
-      final productsBox = await Hive.openBox<Product>("products",
+      final categoriesBox = await Hive.openBox<Categorie>("categories",
           encryptionCipher: HiveAesCipher(encryptionKey1));
 
-      await productsBox.addAll(products);
-      productsBox.close();
+      await categoriesBox.addAll(categories);
+      categoriesBox.close();
       return true;
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
   }
 
-  Future<List<Product>?> getProducts() async {
+  Future<List<Categorie>?> getCategories() async {
     try {
       const secureStorage = FlutterSecureStorage();
       final key = await secureStorage.read(key: 'key');
       final encryptionKey = base64Url.decode(key!);
 
-      final productsBox = await Hive.openBox<Product>("products",
+      final categoriesBox = await Hive.openBox<Categorie>("categories",
           encryptionCipher: HiveAesCipher(encryptionKey));
 
-      if (productsBox.isNotEmpty) {
-        List<Product> temp = productsBox.values.toList().cast<Product>();
+      if (categoriesBox.isNotEmpty) {
+        List<Categorie> temp = categoriesBox.values.toList().cast<Categorie>();
 
-        productsBox.close();
+        categoriesBox.close();
         return temp;
       }
 

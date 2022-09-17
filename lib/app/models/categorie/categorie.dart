@@ -34,10 +34,8 @@ class Categorie extends CategorieBaseModel with HiveObjectMixin {
     }
   }
 
-  List<Categorie> getListFromJson(String jsonlist) {
-    return (json.decode(jsonlist) as List)
-        .map((data) => Categorie.fromJson(data))
-        .toList();
+  List<Categorie> getListFromJson(List<dynamic> jsonlist) {
+    return (jsonlist).map((data) => Categorie.fromJson(data)).toList();
   }
 
   Future<void> setCategorie(Categorie categorie) async {
@@ -47,5 +45,10 @@ class Categorie extends CategorieBaseModel with HiveObjectMixin {
     image = categorie.image;
     approved = categorie.approved;
     children = categorie.children;
+  }
+
+  @override
+  String toString() {
+    return 'Categorie{id: $id, nomAr: $nomAr, nomFr: $nomFr, image: $image, children: $children, approved: $approved}';
   }
 }

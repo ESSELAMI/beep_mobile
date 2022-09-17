@@ -1,7 +1,9 @@
 import 'package:beep_mobile/app/controllers/auth_controller.dart';
+import 'package:beep_mobile/app/models/categorie/categorie.dart';
 import 'package:beep_mobile/app/models/center/center.dart';
 import 'package:beep_mobile/app/models/product/product.dart';
 import 'package:beep_mobile/app/models/token/token.dart';
+import 'package:beep_mobile/app/models/unite/unite.dart';
 import 'package:beep_mobile/app/models/user/user.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
 import 'package:beep_mobile/app/services/local/auth_service.dart';
@@ -9,7 +11,9 @@ import 'package:beep_mobile/app/services/local/locale_service.dart';
 import 'package:beep_mobile/app/services/local/product.dart';
 import 'package:beep_mobile/app/services/local/theme_service.dart';
 import 'package:beep_mobile/app/services/local/token.dart';
+import 'package:beep_mobile/app/services/remote/categorie.dart';
 import 'package:beep_mobile/app/services/remote/product.dart';
+import 'package:beep_mobile/app/services/remote/unite.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
 
@@ -68,6 +72,8 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TokenAdapter());
   Hive.registerAdapter(ProductAdapter());
+  Hive.registerAdapter(CategorieAdapter());
+  Hive.registerAdapter(UniteAdapter());
   // if (OnBoardingService().first) {
   //   AuthService.to.setFirstTrue();
   //   OnBoardingService().switchOnBoarding();
@@ -84,9 +90,11 @@ Future<void> main() async {
     runApp(const MyApp());
   });
 
-  ProductService()
-      .getProducts()
-      .then((value) => "ProductLocalService().saveProducts(value!)");
+  // ProductService()
+  //     .getProducts()
+  //     .then((value) => "ProductLocalService().saveProducts(value!)");
+  // CategorieService().getCategories().then((value) => print(value!.length));
+  UniteService().getUnites().then((value) => print(value!.length));
 }
 
 Future<void> initialization(BuildContext context) async {

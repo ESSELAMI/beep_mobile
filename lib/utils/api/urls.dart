@@ -30,7 +30,7 @@ class ProductApi {
   static String deleteProductByCode = '${Urls.baseUrl}updateProductById';
 }
 
-class CategoritApi {
+class CategorieApi {
   static String categories = '${Urls.baseUrl}categories';
   static String findCategorieByName = '${Urls.baseUrl}findCategorieByName';
   static String findCategorieById = '${Urls.baseUrl}findCategorieById';

@@ -27,10 +27,8 @@ class Unite extends UniteBaseModel with HiveObjectMixin {
     approved = json["approved"];
   }
 
-  List<Unite> getListFromJson(String jsonlist) {
-    return (json.decode(jsonlist) as List)
-        .map((data) => Unite.fromJson(data))
-        .toList();
+  List<Unite> getListFromJson(List<dynamic> jsonlist) {
+    return (jsonlist).map((data) => Unite.fromJson(data)).toList();
   }
 
   Future<void> setUnite(Unite unite) async {
@@ -39,5 +37,10 @@ class Unite extends UniteBaseModel with HiveObjectMixin {
     nomFr = unite.nomFr;
     abreviation = unite.abreviation;
     approved = unite.approved;
+  }
+
+  @override
+  String toString() {
+    return 'Unite{id: $id, nomAr: $nomAr, nomFr: $nomFr, abreviation: $abreviation, approved: $approved}';
   }
 }
