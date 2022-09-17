@@ -59,6 +59,7 @@ dependencies:
   build_runner: ^2.1.7
   hive_generator: ^1.1.1
   convex_bottom_bar: ^3.0.0
+  flutter_secure_storage:
  
  
   # The following adds the Cupertino Icons font to your application.

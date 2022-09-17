@@ -17,13 +17,15 @@ class Categorie extends CategorieBaseModel with HiveObjectMixin {
   String? image;
   @HiveField(4)
   List<Categorie>? children;
-
+  @HiveField(5)
+  int? approved;
   Categorie();
   Categorie.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     id = json["id"];
     nomAr = json["nomAr"];
     nomFr = json["nomFr"];
     image = json["image"];
+    approved = json["approved"];
     if (json["children"] != null) {
       children = <Categorie>[];
       json["children"].forEach((v) {
@@ -43,6 +45,7 @@ class Categorie extends CategorieBaseModel with HiveObjectMixin {
     nomAr = categorie.nomAr;
     nomFr = categorie.nomFr;
     image = categorie.image;
+    approved = categorie.approved;
     children = categorie.children;
   }
 }

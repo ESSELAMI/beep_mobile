@@ -24,6 +24,8 @@ class Product extends ProductBaseModel with HiveObjectMixin {
   Categorie? categorie;
   @HiveField(7)
   Unite? unite;
+  @HiveField(8)
+  int? approved;
   Product();
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class Product extends ProductBaseModel with HiveObjectMixin {
     image = json['image'];
     categorie = json['categorie'];
     unite = json['unite'];
+    approved = json['approved'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class Product extends ProductBaseModel with HiveObjectMixin {
     data['image'] = image;
     data['id_categorie'] = categorie!.id;
     data['id_unite'] = unite!.id;
+    data['approved'] = approved;
     return data;
   }
 

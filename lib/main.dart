@@ -86,7 +86,7 @@ Future<void> main() async {
 
   ProductService()
       .getProducts()
-      .then((value) => ProductLocalService().saveProducts(value!));
+      .then((value) => "ProductLocalService().saveProducts(value!)");
 }
 
 Future<void> initialization(BuildContext context) async {

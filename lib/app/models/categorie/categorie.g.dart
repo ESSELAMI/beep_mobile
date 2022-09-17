@@ -21,13 +21,14 @@ class CategorieAdapter extends TypeAdapter<Categorie> {
       ..nomAr = fields[1] as String?
       ..nomFr = fields[2] as String?
       ..image = fields[3] as String?
-      ..children = (fields[4] as List?)?.cast<Categorie>();
+      ..children = (fields[4] as List?)?.cast<Categorie>()
+      ..approved = fields[5] as int?;
   }
 
   @override
   void write(BinaryWriter writer, Categorie obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -37,7 +38,9 @@ class CategorieAdapter extends TypeAdapter<Categorie> {
       ..writeByte(3)
       ..write(obj.image)
       ..writeByte(4)
-      ..write(obj.children);
+      ..write(obj.children)
+      ..writeByte(5)
+      ..write(obj.approved);
   }
 
   @override

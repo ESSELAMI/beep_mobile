@@ -20,13 +20,14 @@ class UniteAdapter extends TypeAdapter<Unite> {
       ..id = fields[0] as int?
       ..nomAr = fields[1] as String?
       ..nomFr = fields[2] as String?
-      ..abreviation = fields[3] as String?;
+      ..abreviation = fields[3] as String?
+      ..approved = fields[4] as int?;
   }
 
   @override
   void write(BinaryWriter writer, Unite obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -34,7 +35,9 @@ class UniteAdapter extends TypeAdapter<Unite> {
       ..writeByte(2)
       ..write(obj.nomFr)
       ..writeByte(3)
-      ..write(obj.abreviation);
+      ..write(obj.abreviation)
+      ..writeByte(4)
+      ..write(obj.approved);
   }
 
   @override

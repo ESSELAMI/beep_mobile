@@ -15,6 +15,8 @@ class Unite extends UniteBaseModel with HiveObjectMixin {
   String? nomFr;
   @HiveField(3)
   String? abreviation;
+  @HiveField(4)
+  int? approved;
 
   Unite();
   Unite.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
@@ -22,6 +24,7 @@ class Unite extends UniteBaseModel with HiveObjectMixin {
     nomAr = json["nomAr"];
     nomFr = json["nomFr"];
     abreviation = json["abreviation"];
+    approved = json["approved"];
   }
 
   List<Unite> getListFromJson(String jsonlist) {
@@ -35,5 +38,6 @@ class Unite extends UniteBaseModel with HiveObjectMixin {
     nomAr = unite.nomAr;
     nomFr = unite.nomFr;
     abreviation = unite.abreviation;
+    approved = unite.approved;
   }
 }

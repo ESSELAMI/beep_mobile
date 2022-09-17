@@ -30,7 +30,7 @@ class ProductService extends BaseProductService {
       if (response.statusCode.toString() == "200") {
         List<Product> products =
             Product().getListFromJson(json.decode(response.body)["result"]);
-        ProductLocalService().saveProducts(products);
+        ProductLocalService().saveProductsSecure(products);
         return products;
       }
       return null;
