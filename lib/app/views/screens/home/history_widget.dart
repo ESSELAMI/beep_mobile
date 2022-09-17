@@ -25,10 +25,10 @@ class HistoryWidget extends GetView<HomeController> {
                   fontWeight: 600)),
         ),
         body: controller.scannedProducts.isEmpty
-            ? const Center(
+            ? Center(
                 child: Text(
-                'Tap + to create a Barcode',
-                style: TextStyle(fontSize: 24),
+                LocaleKeys.error_no_results.tr,
+                style: const TextStyle(fontSize: 24),
               ))
             : ListView.builder(
                 itemCount: controller.scannedProducts.length,

@@ -1,11 +1,9 @@
 import 'package:beep_mobile/app/controllers/home.dart';
-import 'package:beep_mobile/app/routes/app_pages.dart';
 import 'package:beep_mobile/app/views/screens/scanner/components/product_dialog.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScannerWidget extends GetView<HomeController> {
@@ -35,15 +33,6 @@ class ScannerWidget extends GetView<HomeController> {
             },
           ),
           appBar: AppBar(
-            leading: IconButton(
-              onPressed: () => controller.changePage(Routes.HOME),
-              icon: Icon(
-                Get.locale.toString() == 'ar'
-                    ? MdiIcons.chevronRight
-                    : MdiIcons.chevronLeft,
-                size: 26,
-              ),
-            ),
             title: Text(LocaleKeys.label_scan_barcode.tr,
                 style: AppTheme.getTextStyle(
                     AppTheme.getThemeFromThemeMode().textTheme.titleLarge,
