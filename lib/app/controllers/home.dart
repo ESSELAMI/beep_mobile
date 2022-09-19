@@ -145,11 +145,15 @@ class HomeController extends BaseHomeController
     change(isLoading, status: RxStatus.success());
 
     await ProductService().getProduct(barcode).then((value) {
-      scannedProduct = value!;
+      if (value != null) {
+        scannedProduct = value;
+        barcodeController.text = scannedProduct.codeBarre.toString();
+        nomFrController.text = scannedProduct.nomFr.toString();
+      } else {
+        barcodeController.text = "Aucun produit trouvé";
+        nomFrController.text = "Acun produit trouvé";
+      }
       print('result ========$result');
-      barcodeController.text = scannedProduct.codeBarre.toString();
-
-      nomFrController.text = scannedProduct.nomFr.toString();
 
       isLoading = false;
       EasyLoading.dismiss();

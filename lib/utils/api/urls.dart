@@ -22,7 +22,7 @@ class Urls {
 
 class ProductApi {
   static String products = '${Urls.baseUrl}products';
-  static String findProducts = '${Urls.baseUrl}find';
+  static String findProducts = '${Urls.baseUrl}findProduct';
   static String creatProduct = '${Urls.baseUrl}creatProduct';
   static String updateProductByCode = '${Urls.baseUrl}updateProductByCode';
   static String updateProductById = '${Urls.baseUrl}updateProductById';
