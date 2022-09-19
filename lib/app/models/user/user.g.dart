@@ -37,7 +37,6 @@ class UserAdapter extends TypeAdapter<User> {
       ..email = fields[18] as String?
       ..hasQrCode = fields[19] as String?
       ..position = fields[20] as String?
-      ..centre = fields[21] as Centre?
       ..lastNameAr = fields[22] as String?
       ..lastName = fields[23] as String?
       ..firstName = fields[24] as String?
@@ -89,8 +88,6 @@ class UserAdapter extends TypeAdapter<User> {
       ..write(obj.hasQrCode)
       ..writeByte(20)
       ..write(obj.position)
-      ..writeByte(21)
-      ..write(obj.centre)
       ..writeByte(22)
       ..write(obj.lastNameAr)
       ..writeByte(23)

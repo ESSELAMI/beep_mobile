@@ -28,21 +28,6 @@ class HomeController extends BaseHomeController
     with GetSingleTickerProviderStateMixin {
   Product scannedProduct = Product();
   List<local_product.Product> scannedProducts = [];
-  void configLoading() {
-    EasyLoading.instance
-      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-      ..loadingStyle = EasyLoadingStyle.dark
-      ..indicatorSize = 45.0
-      ..radius = 10.0
-      ..progressColor = Colors.yellow
-      ..backgroundColor = Colors.green
-      ..indicatorColor = Colors.yellow
-      ..textColor = Colors.yellow
-      ..maskColor = Colors.blue.withOpacity(0.5)
-      ..userInteractions = true
-      ..dismissOnTap = false;
-  }
-
   bool isLoading = false;
   bool isVisible = false;
   late TextEditingController barcodeController;
@@ -53,32 +38,48 @@ class HomeController extends BaseHomeController
   late TextEditingController unityController;
   QRViewController? cameraController;
   AudioPlayer player = AudioPlayer();
-
   Barcode? result;
-
   bool flash = false;
+  int selectedIndex = 2;
+
+  final Container barcodesPage = Container(
+    color: Colors.redAccent,
+  );
+  final HistoryWidget historyPage = const HistoryWidget();
+  final ScannerWidget scannerPage = ScannerWidget();
+  final Container helpPage = Container(color: Colors.orangeAccent);
+  final Container settingsPage = Container(color: Colors.purpleAccent);
+
+  dynamic pages() => <dynamic>[
+        barcodesPage,
+        historyPage,
+        scannerPage,
+        helpPage,
+        settingsPage,
+      ];
+
+  TabController? tabController;
+  int currentIndex = 2;
+  @override
+  void onInit() async {
+    barcodeController = TextEditingController();
+    nomFrController = TextEditingController();
+    nomArController = TextEditingController();
+    categoryController = TextEditingController();
+    unityController = TextEditingController();
+    searchBarcodeController = TextEditingController();
+    configLoading();
+
+    isLoading = false;
+    change(isLoading, status: RxStatus.success());
+    BackButtonInterceptor.add(myInterceptor, name: "home");
+    super.onInit();
+  }
+
   deleteProduct(int index) {
     scannedProducts.elementAt(index).delete();
     scannedProducts.removeAt(index);
     change(scannedProducts, status: RxStatus.success());
-  }
-
-  showSnackBar(String type, String message) {
-    Get.snackbar(
-      type == LocaleKeys.error_title.tr
-          ? LocaleKeys.error_title.tr
-          : LocaleKeys.label_success_title.tr,
-      message,
-      animationDuration: const Duration(milliseconds: 500),
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(16),
-      backgroundColor: type == LocaleKeys.error_title.tr
-          ? Colors.redAccent
-          : Colors.greenAccent,
-      icon: Icon(type == LocaleKeys.error_title.tr ? Icons.error : Icons.done,
-          color: Colors.white),
-      snackPosition: SnackPosition.BOTTOM,
-    );
   }
 
   addProduct() async {
@@ -106,34 +107,6 @@ class HomeController extends BaseHomeController
     Navigator.pop(Get.context!);
   }
 
-  // Future<Product?>? getProduct(String barcode) async {
-  //   ProductResult? result;
-  //   isLoading = true;
-  //   EasyLoading.show(
-  //       indicator: CircularProgressIndicator(
-  //     color: AppTheme.getThemeFromThemeMode().primaryColor,
-  //   ));
-
-  //   change(isLoading, status: RxStatus.success());
-  //   ProductQueryConfiguration configuration = ProductQueryConfiguration(barcode,
-  //       language: OpenFoodFactsLanguage.ARABIC, fields: [ProductField.ALL]);
-  //   await OpenFoodAPIClient.getProduct(configuration).then((value) {
-  //     result = value;
-  //     barcodeController.text = result!.barcode.toString();
-
-  //     nomFrController.text = result!.barcode.toString();
-
-  //     isLoading = false;
-  //     EasyLoading.dismiss();
-  //     change(isLoading, status: RxStatus.success());
-  //   });
-
-  //   if (result!.status == 1) {
-  //     return result!.product;
-  //   }
-  //   return null;
-  //   // return null;
-  // }
   Future<Product?>? getProduct(String barcode) async {
     Product? result;
     isLoading = true;
@@ -153,8 +126,6 @@ class HomeController extends BaseHomeController
         barcodeController.text = "Aucun produit trouvé";
         nomFrController.text = "Acun produit trouvé";
       }
-      print('result ========$result');
-
       isLoading = false;
       EasyLoading.dismiss();
       change(isLoading, status: RxStatus.success());
@@ -201,45 +172,6 @@ class HomeController extends BaseHomeController
     change(flash, status: RxStatus.success());
   }
 
-  int selectedIndex = 2;
-
-  final Container barcodesPage = Container(
-    color: Colors.redAccent,
-  );
-  final HistoryWidget historyPage = const HistoryWidget();
-  final ScannerWidget scannerPage = ScannerWidget();
-  final Container helpPage = Container(color: Colors.orangeAccent);
-  final Container settingsPage = Container(color: Colors.purpleAccent);
-
-  dynamic pages() => <dynamic>[
-        barcodesPage,
-        historyPage,
-        scannerPage,
-        helpPage,
-        settingsPage,
-      ];
-
-  TabController? tabController;
-  int currentIndex = 2;
-
-  changePage(String page) {
-    final thenTo =
-        Get.rootDelegate.currentConfiguration!.currentPage!.parameters?['then'];
-    Get.rootDelegate.toNamed(thenTo ?? page);
-  }
-
-  goToFamilyMembers() {
-    final thenTo =
-        Get.rootDelegate.currentConfiguration!.currentPage!.parameters?['then'];
-    Get.rootDelegate.offNamed(thenTo ?? Routes.FAMILYMEMBERS);
-  }
-
-  goToPrescription() {
-    final thenTo =
-        Get.rootDelegate.currentConfiguration!.currentPage!.parameters?['then'];
-    Get.rootDelegate.offNamed(thenTo ?? Routes.PRESCRIPTION);
-  }
-
   goToScanner() {
     final thenTo =
         Get.rootDelegate.currentConfiguration!.currentPage!.parameters?['then'];
@@ -251,103 +183,12 @@ class HomeController extends BaseHomeController
     change(currentIndex, status: RxStatus.success());
     if (index == 1) {
       ProductLocalService().getProducts().then((value) {
-        print('xcwxcwxcw $value.length');
         if (value != null) {
           scannedProducts.addAll(value);
           change(scannedProducts, status: RxStatus.success());
         }
       });
     }
-  }
-
-  @override
-  void onInit() async {
-    barcodeController = TextEditingController();
-    nomFrController = TextEditingController();
-    nomArController = TextEditingController();
-    categoryController = TextEditingController();
-    unityController = TextEditingController();
-    searchBarcodeController = TextEditingController();
-    configLoading();
-
-    change(scannedProducts, status: RxStatus.success());
-    // tabController!.animation!.addListener(() {
-    //   final aniValue = tabController!.animation!.value;
-    //   if (aniValue - currentIndex > 0.5) {
-    //     currentIndex = currentIndex + 1;
-    //   } else if (aniValue - currentIndex < -0.5) {
-    //     currentIndex = currentIndex - 1;
-    //   }
-    // });
-    // isVisible = false;
-    // NotificationService _notificationService = NotificationService();
-    // user.localSave()
-    isLoading = false;
-    change(isLoading, status: RxStatus.success());
-    // await CheckLocalLocalService().getChecks("user").then((value) async {
-    //   if (value == true) {
-    //     await UserService().getUserData().then((value) {
-    //       if (value != null) {
-    //         user = value;
-    //         isLoading = false;
-    //         change(isLoading, status: RxStatus.success());
-    //         user.localSave();
-    //         CheckLocalLocalService().saveCheckLocal("user");
-    //         change(user, status: RxStatus.success());
-    //       } else {
-    //         isLoading = false;
-    //         change(isLoading, status: RxStatus.success());
-    //       }
-    //     }).timeout(const Duration(seconds: 30), onTimeout: () {
-    //       SnackBarWidget().showErrorSnackBar("timeoutexception");
-    //       throw TimeoutException(
-    //           'The connection has timed out, Please try again!');
-    //     });
-    //   } else {
-    //     await UserLocalService().getUser().then((value) {
-    //       if (value != null) {
-    //         user = value;
-    //         isLoading = false;
-    //         change(isLoading, status: RxStatus.success());
-    //         change(user, status: RxStatus.success());
-    //       } else {
-    //         isLoading = false;
-    //         change(isLoading, status: RxStatus.success());
-    //       }
-    //     });
-    //   }
-
-    //   IO.Socket socket = IO.io(
-    //       'http://130.61.51.10:3006',
-    //       OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
-    //           .setQuery({
-    //         'userid': user.noAssure.toString(),
-    //         'username':
-    //             user.firstName.toString() + ' ' + user.lastName.toString(),
-    //         'type': 'mobile',
-    //       }) // optional
-    //           .build());
-    //   socket.onConnect((_) {
-    //     print('connect');
-    //     // socket.emit('new user', 'test');
-    //   });
-    //   socket.on('notificationDialog', (data) {
-    //     //notification
-    //     _notificationService.showNotifications();
-    //   });
-    //   socket.on('customMessage', (data) {
-    //     //notification
-    //     _notificationService.showCustomNotifications(data);
-    //   });
-    //   socket.on(
-    //       'new message', (data) => print("new message : " + data.toString()));
-    //   socket.connect();
-
-    //   socket.onDisconnect((_) => print('disconnect'));
-    // });
-
-    BackButtonInterceptor.add(myInterceptor, name: "home");
-    super.onInit();
   }
 
   showConfirmDialog() {
@@ -371,6 +212,12 @@ class HomeController extends BaseHomeController
     change(isVisible, status: RxStatus.success());
   }
 
+  changePage(String page) {
+    final thenTo =
+        Get.rootDelegate.currentConfiguration!.currentPage!.parameters?['then'];
+    Get.rootDelegate.toNamed(thenTo ?? page);
+  }
+
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     if (isVisible == false) {
       showConfirmDialog();
@@ -381,6 +228,39 @@ class HomeController extends BaseHomeController
       change(isVisible, status: RxStatus.success());
       return true;
     }
+  }
+
+  showSnackBar(String type, String message) {
+    Get.snackbar(
+      type == LocaleKeys.error_title.tr
+          ? LocaleKeys.error_title.tr
+          : LocaleKeys.label_success_title.tr,
+      message,
+      animationDuration: const Duration(milliseconds: 500),
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
+      backgroundColor: type == LocaleKeys.error_title.tr
+          ? Colors.redAccent
+          : Colors.greenAccent,
+      icon: Icon(type == LocaleKeys.error_title.tr ? Icons.error : Icons.done,
+          color: Colors.white),
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
+  void configLoading() {
+    EasyLoading.instance
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+      ..loadingStyle = EasyLoadingStyle.dark
+      ..indicatorSize = 45.0
+      ..radius = 10.0
+      ..progressColor = Colors.yellow
+      ..backgroundColor = Colors.green
+      ..indicatorColor = Colors.yellow
+      ..textColor = Colors.yellow
+      ..maskColor = Colors.blue.withOpacity(0.5)
+      ..userInteractions = true
+      ..dismissOnTap = false;
   }
 
   @override

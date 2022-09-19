@@ -1,6 +1,5 @@
 import 'package:beep_mobile/app/controllers/auth_controller.dart';
 import 'package:beep_mobile/app/models/categorie/categorie.dart';
-import 'package:beep_mobile/app/models/center/center.dart';
 import 'package:beep_mobile/app/models/product/product.dart';
 import 'package:beep_mobile/app/models/token/token.dart';
 import 'package:beep_mobile/app/models/unite/unite.dart';
@@ -8,15 +7,11 @@ import 'package:beep_mobile/app/models/user/user.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
 import 'package:beep_mobile/app/services/local/auth_service.dart';
 import 'package:beep_mobile/app/services/local/locale_service.dart';
-import 'package:beep_mobile/app/services/local/product.dart';
 import 'package:beep_mobile/app/services/local/theme_service.dart';
 import 'package:beep_mobile/app/services/local/token.dart';
-import 'package:beep_mobile/app/services/remote/categorie.dart';
-import 'package:beep_mobile/app/services/remote/product.dart';
 import 'package:beep_mobile/app/services/remote/unite.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
-
 // import 'package:pos_mobile/utils/api/notificationsApi.dart';
 
 import 'package:flutter/material.dart';
@@ -99,8 +94,6 @@ Future<void> main() async {
 
 Future<void> initialization(BuildContext context) async {
   Hive.registerAdapter(UserAdapter());
-
-  Hive.registerAdapter(CentreAdapter());
 
   // NotificationService _notificationService = NotificationService();
 

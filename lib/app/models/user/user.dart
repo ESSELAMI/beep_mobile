@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:beep_mobile/app/models/center/center.dart';
 import 'package:beep_mobile/app/services/local/user.dart';
 import 'package:beep_mobile/base/models/user.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
@@ -53,8 +52,6 @@ class User extends UserBaseModel with HiveObjectMixin {
   String? hasQrCode;
   @HiveField(20)
   String? position;
-  @HiveField(21)
-  Centre? centre;
   @HiveField(22)
   String? lastNameAr;
   @HiveField(23)
@@ -81,8 +78,6 @@ class User extends UserBaseModel with HiveObjectMixin {
     statusAr = json["position"]["libelleAr"] ?? "";
     birthDate = json["assure"]["dateNaissance"] ?? "";
     center = json["assure"]["centre"] ?? "";
-    centre =
-        json["hanaCentre"] != null ? Centre.fromJson(json["hanaCentre"]) : null;
     statusDate = json["assure"]["dateFinDroit"] ?? "";
     situationFam = json["assure"]["sitFamille"] ?? "";
     address = json["assure"]["adresse"] ?? "";
