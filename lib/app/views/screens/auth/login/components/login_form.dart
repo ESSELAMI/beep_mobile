@@ -1,3 +1,4 @@
+import 'package:beep_mobile/app/views/screens/auth/login/components/style.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:beep_mobile/app/controllers/login.dart';
 import 'package:beep_mobile/app/services/local/theme_service.dart';
@@ -68,13 +69,7 @@ class LoginForm extends GetView<LoginController> {
                   padding: const EdgeInsets.all(8),
                   child: Text(
                     LocaleKeys.label_authentification.tr,
-                    style: AppTheme.getTextStyle(
-                        AppTheme.getThemeFromThemeMode().textTheme.headline6,
-                        letterSpacing: 0,
-                        fontWeight: 600,
-                        color: AppTheme.getThemeFromThemeMode()
-                            .colorScheme
-                            .onBackground),
+                    style: Style.authStyle,
                   ),
                 ),
                 Container(
@@ -82,13 +77,7 @@ class LoginForm extends GetView<LoginController> {
                   child: Text(
                     LocaleKeys.label_sign_in_using.tr,
                     textAlign: TextAlign.center,
-                    style: AppTheme.getTextStyle(
-                        AppTheme.getThemeFromThemeMode().textTheme.bodyText1,
-                        letterSpacing: 0,
-                        fontWeight: 500,
-                        color: AppTheme.getThemeFromThemeMode()
-                            .colorScheme
-                            .onBackground),
+                    style: Style.signInStyle,
                   ),
                 ),
                 const SizedBox(
@@ -101,46 +90,8 @@ class LoginForm extends GetView<LoginController> {
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.text,
                     controller: controller.userNameController,
-                    style: AppTheme.getTextStyle(
-                      AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
-                      color: const Color(0xff495057),
-                      letterSpacing: 0,
-                      height: 1.5,
-                      fontWeight: 500,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: LocaleKeys.label_social_security_number.tr,
-                      hintStyle: AppTheme.getTextStyle(
-                          AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
-                          letterSpacing: 0,
-                          color: const Color(0xff495057),
-                          fontWeight: 600),
-                      border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
-                          ),
-                          borderSide: BorderSide.none),
-                      enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
-                          ),
-                          borderSide: BorderSide.none),
-                      focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
-                          ),
-                          borderSide: BorderSide.none),
-                      filled: true,
-                      prefixIcon: Icon(
-                        MdiIcons.account,
-                        size: 22,
-                        color: AppTheme.getThemeFromThemeMode()
-                            .colorScheme
-                            .primary,
-                      ),
-                      isDense: true,
-                      contentPadding: const EdgeInsets.only(right: 16),
-                    ),
+                    style: Style.userStyle,
+                    decoration: Style.userDecoration,
                     textCapitalization: TextCapitalization.sentences,
                   ),
                 ),
@@ -150,57 +101,18 @@ class LoginForm extends GetView<LoginController> {
                   child: TextFormField(
                     textAlignVertical: TextAlignVertical.center,
                     controller: controller.passwordController,
-                    style: AppTheme.getTextStyle(
-                      AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
-                      letterSpacing: 0,
-                      height: 1.5,
-                      fontWeight: 500,
-                      color: const Color(0xff495057),
-                    ),
-                    decoration: InputDecoration(
-                      hintText: LocaleKeys.label_password.tr,
-                      hintStyle: AppTheme.getTextStyle(
-                          AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
-                          letterSpacing: 0,
-                          color: const Color(0xff495057),
-                          fontWeight: 600),
-                      border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
-                          ),
-                          borderSide: BorderSide.none),
-                      enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
-                          ),
-                          borderSide: BorderSide.none),
-                      focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
-                          ),
-                          borderSide: BorderSide.none),
-                      filled: true,
-                      prefixIcon: Icon(
-                        MdiIcons.lock,
-                        size: 22,
-                        color: AppTheme.getThemeFromThemeMode()
-                            .colorScheme
-                            .primary,
+                    style: Style.passwordStyle,
+                    decoration: Style.passwordDecoration(IconButton(
+                      icon: Icon(
+                        controller.showPass
+                            ? MdiIcons.eyeOutline
+                            : MdiIcons.eyeOffOutline,
+                        color: const Color(0xff495057),
                       ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          controller.showPass
-                              ? MdiIcons.eyeOutline
-                              : MdiIcons.eyeOffOutline,
-                          color: const Color(0xff495057),
-                        ),
-                        onPressed: () {
-                          controller.changeVisibility();
-                        },
-                      ),
-                      isDense: true,
-                      contentPadding: const EdgeInsets.only(right: 16),
-                    ),
+                      onPressed: () {
+                        controller.changeVisibility();
+                      },
+                    )),
                     obscureText: !controller.showPass,
                   ),
                 ),
@@ -212,15 +124,6 @@ class LoginForm extends GetView<LoginController> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () => {
-                          // Get.snackbar(
-                          //   LocaleKeys.error_title.tr,
-                          //   LocaleKeys.error_bad_credentials.tr,
-                          //   margin: const EdgeInsets.all(16),
-                          //   padding: const EdgeInsets.all(16),
-                          //   backgroundColor: Colors.redAccent,
-                          //   icon: const Icon(Icons.error, color: Colors.white),
-                          //   snackPosition: SnackPosition.BOTTOM,
-                          // ),
                           controller.goToForgotPassword(),
                         },
                         child: Text(
@@ -272,15 +175,6 @@ class LoginForm extends GetView<LoginController> {
                     ),
                     GestureDetector(
                       onTap: () => {
-                        // Get.snackbar(
-                        //   LocaleKeys.error_title.tr,
-                        //   LocaleKeys.error_bad_credentials.tr,
-                        //   margin: const EdgeInsets.all(16),
-                        //   padding: const EdgeInsets.all(16),
-                        //   backgroundColor: Colors.redAccent,
-                        //   icon: const Icon(Icons.error, color: Colors.white),
-                        //   snackPosition: SnackPosition.BOTTOM,
-                        // ),
                         controller.goToRegister(),
                       },
                       child: Text(

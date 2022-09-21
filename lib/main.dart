@@ -9,7 +9,6 @@ import 'package:beep_mobile/app/services/local/auth_service.dart';
 import 'package:beep_mobile/app/services/local/locale_service.dart';
 import 'package:beep_mobile/app/services/local/theme_service.dart';
 import 'package:beep_mobile/app/services/local/token.dart';
-import 'package:beep_mobile/app/services/remote/unite.dart';
 import 'package:beep_mobile/utils/generated/locales.g.dart';
 import 'package:beep_mobile/utils/theme/AppTheme.dart';
 // import 'package:pos_mobile/utils/api/notificationsApi.dart';
@@ -23,42 +22,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
-/**
-* 
-// ignore: todo
-* !  check null values from api (add ?? "")
-* * map filter userCenter 
-* * familiy members (duplicate prescriptions)
-* * health_ structures (model back end...)
-* * map add back button
-* * back button (physical) 
-* * add call phone function
-* * profile add center information
-
-* * fix forget password
-* * add agree terms (login and registration)
-
-* ? handle errors (almost there)
-
-
-* * add info when selecting image  (from camera and gallery in new sick Leave)
-* * add verification (number of days in sick leave new)
-* * Online requests (sick leave)
-* * todo fix when sick leave request is sent (back to list or clear form)
-
-
-
-* todo preoccupations
-* todo contact us design
-
-* todo Online requests (chifa card)
-
-
-* todo edit health centers design (copy prescriptions..)
-* todo edit profile design
-
-  */
-
   await GetStorage.init();
   Get.lazyPut(() => AuthService());
   Get.lazyPut<AuthController>(() => AuthController());
@@ -89,44 +52,11 @@ Future<void> main() async {
   //     .getProducts()
   //     .then((value) => "ProductLocalService().saveProducts(value!)");
   // CategorieService().getCategories().then((value) => print(value!.length));
-  UniteService().getUnites().then((value) => print(value!.length));
+  // UniteService().getUnites().then((value) => print(value!.length));
 }
 
 Future<void> initialization(BuildContext context) async {
   Hive.registerAdapter(UserAdapter());
-
-  // NotificationService _notificationService = NotificationService();
-
-  // PreoccupationService().getPreoccupations().then((value) => print(value));
-  // UserLocalService().getUser().then((value) {
-  //   IO.Socket socket = IO.io(
-  //       'http://130.61.51.10:3006',
-  //       OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
-  //           .setQuery({
-  //         'userid': value!.noAssure.toString(),
-  //         'username':
-  //             value.firstName.toString() + ' ' + value.lastName.toString(),
-  //         'type': 'mobile',
-  //       }) // optional
-  //           .build());
-  //   socket.onConnect((_) {
-  //     print('connect');
-  //     // socket.emit('new user', 'test');
-  //   });
-  //   socket.on('notificationDialog', (data) {
-  //     //notification
-  //     _notificationService.showNotifications();
-  //   });
-  //   socket.on('customMessage', (data) {
-  //     //notification
-  //     _notificationService.showCustomNotifications(data);
-  //   });
-  //   socket.on(
-  //       'new message', (data) => print("new message : " + data.toString()));
-  //   socket.connect();
-
-  //   socket.onDisconnect((_) => print('disconnect'));
-  // });
 }
 
 class MyApp extends StatelessWidget {
