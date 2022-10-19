@@ -1,14 +1,9 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:beep_mobile/app/controllers/app_translation.dart';
-import 'package:beep_mobile/app/models/token/token.dart';
 import 'package:beep_mobile/app/routes/app_pages.dart';
 import 'package:beep_mobile/app/services/local/auth_service.dart';
 import 'package:beep_mobile/app/services/local/locale_service.dart';
 import 'package:beep_mobile/app/services/local/theme_service.dart';
-import 'package:beep_mobile/app/services/local/token.dart';
 import 'package:beep_mobile/app/services/remote/auth.dart';
 import 'package:beep_mobile/base/controllers/login.dart';
 import 'package:beep_mobile/utils/snack_bar.dart';

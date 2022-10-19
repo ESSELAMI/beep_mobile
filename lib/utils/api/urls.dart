@@ -1,3 +1,7 @@
+class Urls {
+  static String baseUrl = 'https://global.keaa.ml/api/';
+}
+
 class SecurityApi {
   static String baseUrl = 'https://auth.beep_mobile.ml/api/';
   // 'http://10.236.1.242:8201/api/v1/';n
@@ -14,10 +18,6 @@ class SecurityApi {
       '${baseUrl}hanaUsers/phone/update/confirmSMSPhone';
   static String confirmPhone = '${baseUrl}hanaUsers/password/sendPasswordSMS';
   static String updateProfile = '${baseUrl}profil/update';
-}
-
-class Urls {
-  static String baseUrl = 'https://global.keaa.ml/api/';
 }
 
 class ProductApi {
