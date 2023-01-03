@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class ProductInfoWidget extends GetView<HomeController> {
-  const ProductInfoWidget({Key? key}) : super(key: key);
+class ProductEditWidget extends GetView<HomeController> {
+  const ProductEditWidget({Key? key}) : super(key: key);
 
   _pickDate(BuildContext context, int index) async {
     await showDatePicker(
@@ -37,9 +37,7 @@ class ProductInfoWidget extends GetView<HomeController> {
               // final thenTo = Get.rootDelegate.currentConfiguration!
               //     .currentPage!.parameters?['then'];
               // Get.rootDelegate.toNamed(thenTo ?? Routes.HOME);
-              controller.cameraController != null
-                  ? await controller.cameraController!.resumeCamera()
-                  : null;
+
               Navigator.pop(context);
             },
             child: Icon(
@@ -84,7 +82,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          controller: controller.barcodeController,
+                          controller: controller.editBarcodeController,
                           // initialValue: product!.barcode,
                           style: AppTheme.getTextStyle(
                               AppTheme.getThemeFromThemeMode()
@@ -251,7 +249,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          controller: controller.nomFrController,
+                          controller: controller.editNomFrController,
                           // initialValue: product!.productName,
                           // validator: (value) {
                           //   if (value!.isEmpty) {
@@ -338,7 +336,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          controller: controller.nomArController,
+                          controller: controller.editNomArController,
                           // initialValue: product!.genericName,
                           // validator: (value) {
                           //   if (value!.isEmpty) {
@@ -425,7 +423,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          controller: controller.quantityController,
+                          controller: controller.editQuantityController,
                           // initialValue: product!.categorie!.nomFr,
                           // validator: (value) {
                           //   if (value!.isEmpty) {
@@ -512,7 +510,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          controller: controller.costController,
+                          controller: controller.editCostController,
                           // initialValue:
                           //     controller.scannedProduct.unite!.abreviation,
                           style: AppTheme.getTextStyle(
@@ -594,7 +592,7 @@ class ProductInfoWidget extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(vertical: 8),
                         width: double.infinity,
                         child: TextFormField(
-                          controller: controller.priceController,
+                          controller: controller.editPriceController,
                           // initialValue:
                           //     controller.scannedProduct.unite!.abreviation,
                           style: AppTheme.getTextStyle(
@@ -690,10 +688,10 @@ class ProductInfoWidget extends GetView<HomeController> {
                           borderRadiusAll: 4,
                           elevation: 0,
                           onPressed: () {
-                            controller.addProduct();
+                            controller.saveProduct();
                           },
                           child: Text(
-                            LocaleKeys.label_add.tr,
+                            LocaleKeys.label_save.tr,
                             style: AppTheme.getTextStyle(
                                 AppTheme.getThemeFromThemeMode()
                                     .textTheme

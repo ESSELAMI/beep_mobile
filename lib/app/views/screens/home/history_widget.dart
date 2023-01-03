@@ -40,17 +40,16 @@ class HistoryWidget extends GetView<HomeController> {
                         title: Text(
                             controller.scannedProducts[index].codeBarre ?? ''),
                         subtitle: Text(
-                            controller.scannedProducts[index].nomAr.toString()),
+                            controller.scannedProducts[index].nomFr.toString()),
                         trailing: ButtonBar(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             // Copy button
                             IconButton(
-                              icon: const Icon(FontAwesomeIcons.copy),
+                              icon: const Icon(FontAwesomeIcons.penToSquare),
                               onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: controller
-                                        .scannedProducts[index].codeBarre));
+                                controller.editProduct(
+                                    controller.scannedProducts[index]);
                               },
                             ),
                             // Remove button

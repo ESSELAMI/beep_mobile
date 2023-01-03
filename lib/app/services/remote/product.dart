@@ -54,9 +54,9 @@ class ProductService extends BaseProductService {
             'The connection has timed out, Please try again!');
       });
       if (response.statusCode.toString() == "200") {
-        Product product = Product()
-            .getFromJson(json.decode(response.body)["result"]["result"]);
-        print(product.toString());
+        print(response.body);
+        Product product =
+            Product().getFromJson(json.decode(response.body)["result"]);
 
         return product;
       }

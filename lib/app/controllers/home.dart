@@ -8,6 +8,7 @@ import 'package:beep_mobile/app/services/local/product.dart';
 import 'package:beep_mobile/app/services/remote/product.dart';
 import 'package:beep_mobile/app/views/screens/home/add_product.dart';
 import 'package:beep_mobile/app/views/screens/home/components/dialogs/confirm_close_app_dialog.dart';
+import 'package:beep_mobile/app/views/screens/home/edit_product.dart';
 import 'package:beep_mobile/app/views/screens/home/history_widget.dart';
 import 'package:beep_mobile/app/views/screens/scanner/scanner_widget.dart';
 import 'package:beep_mobile/app/views/widgets/route_builders/slide_left_route.dart';
@@ -34,8 +35,17 @@ class HomeController extends BaseHomeController
   late TextEditingController searchBarcodeController;
   late TextEditingController nomFrController;
   late TextEditingController nomArController;
-  late TextEditingController categoryController;
-  late TextEditingController unityController;
+  late TextEditingController quantityController;
+  late TextEditingController costController;
+  late TextEditingController priceController;
+
+  late TextEditingController editBarcodeController;
+  late TextEditingController editNomFrController;
+  late TextEditingController editNomArController;
+  late TextEditingController editQuantityController;
+  late TextEditingController editCostController;
+  late TextEditingController editPriceController;
+
   QRViewController? cameraController;
   AudioPlayer player = AudioPlayer();
   Barcode? result;
@@ -65,21 +75,40 @@ class HomeController extends BaseHomeController
     barcodeController = TextEditingController();
     nomFrController = TextEditingController();
     nomArController = TextEditingController();
-    categoryController = TextEditingController();
-    unityController = TextEditingController();
+    quantityController = TextEditingController();
+    costController = TextEditingController();
+    priceController = TextEditingController();
+
+    editBarcodeController = TextEditingController();
+    editNomFrController = TextEditingController();
+    editNomArController = TextEditingController();
+    editQuantityController = TextEditingController();
+    editCostController = TextEditingController();
+    editPriceController = TextEditingController();
+
     searchBarcodeController = TextEditingController();
     configLoading();
-
     isLoading = false;
     change(isLoading, status: RxStatus.success());
+    // ProductLocalService().getProducts().then((value) {
+    //   scannedProducts = List.empty();
+    //   scannedProducts = value!;
+    //   isLoading = false;
+    //   change(isLoading, status: RxStatus.success());
+    // });
+
     BackButtonInterceptor.add(myInterceptor, name: "home");
     super.onInit();
   }
 
   deleteProduct(int index) {
-    scannedProducts.elementAt(index).delete();
-    scannedProducts.removeAt(index);
-    change(scannedProducts, status: RxStatus.success());
+    Product product = scannedProducts[index];
+    ProductLocalService().deleteProduct(product).then((value) {
+      ProductLocalService().getProducts().then((value) {
+        scannedProducts = value!;
+        change(scannedProducts, status: RxStatus.success());
+      });
+    });
   }
 
   addProduct() async {
@@ -90,20 +119,54 @@ class HomeController extends BaseHomeController
     product.nomAr = nomArController.text;
     product.nomFr = nomFrController.text;
 
+    product.price = double.parse(priceController.text);
+    product.quantity = int.parse(quantityController.text);
+    product.cost = double.parse(costController.text);
+
     ProductLocalService().saveProduct(product).then((value) {
       if (value) {
         scannedProducts.add(product);
         showSnackBar(
             LocaleKeys.label_success_title.tr, 'Product added successfully');
       } else {
-        showSnackBar(
-            LocaleKeys.label_success_title.tr, 'Product already exist');
+        showSnackBar("Error", 'Product already exists');
       }
     });
 
     change(scannedProducts, status: RxStatus.success());
 
     await cameraController!.resumeCamera();
+    Navigator.pop(Get.context!);
+  }
+
+  saveProduct() async {
+    print(
+        '${barcodeController.text}\n${nomFrController.text}\n${nomArController.text}');
+    local_product.Product product = local_product.Product();
+    product.codeBarre = editBarcodeController.text;
+    product.nomAr = editNomArController.text;
+    product.nomFr = editNomFrController.text;
+
+    product.price = double.parse(editPriceController.text);
+    product.quantity = int.parse(editQuantityController.text);
+    product.cost = double.parse(editCostController.text);
+
+    ProductLocalService().updateProduct(product).then((value) {
+      if (value) {
+        ProductLocalService().getProducts().then((value) {
+          scannedProducts.clear();
+          scannedProducts.addAll(value!);
+          change(scannedProducts, status: RxStatus.success());
+          showSnackBar(
+              LocaleKeys.label_success_title.tr, 'Product added successfully');
+        });
+      } else {
+        showSnackBar("Error", 'Product already exists');
+      }
+    });
+
+    change(scannedProducts, status: RxStatus.success());
+
     Navigator.pop(Get.context!);
   }
 
@@ -134,6 +197,17 @@ class HomeController extends BaseHomeController
 
     return result;
     // return null;
+  }
+
+  editProduct(Product product) async {
+    editBarcodeController.text = product.codeBarre.toString();
+    editNomFrController.text = product.nomFr.toString();
+    editNomArController.text = product.nomAr.toString();
+    editCostController.text = product.cost.toString();
+    editPriceController.text = product.price.toString();
+    editQuantityController.text = product.quantity.toString();
+
+    Navigator.push(Get.context!, SlideLeftRoute(const ProductEditWidget()));
   }
 
   void onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
@@ -184,6 +258,7 @@ class HomeController extends BaseHomeController
     if (index == 1) {
       ProductLocalService().getProducts().then((value) {
         if (value != null) {
+          scannedProducts.clear();
           scannedProducts.addAll(value);
           change(scannedProducts, status: RxStatus.success());
         }
