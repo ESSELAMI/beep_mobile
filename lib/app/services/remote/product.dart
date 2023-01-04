@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:beep_mobile/app/models/product/product.dart';
+import 'package:beep_mobile/app/models/product/product.dart' as local_product;
 import 'package:beep_mobile/app/services/local/product.dart';
 import 'package:beep_mobile/base/services/product.dart';
 
 import 'package:beep_mobile/utils/api/urls.dart';
 import 'package:http/http.dart' as http;
+import 'package:openfoodfacts/openfoodfacts.dart';
 
 class ProductService extends BaseProductService {
-  Future<List<Product>?> getProducts() async {
+  Future<List<local_product.Product>?> getProducts() async {
     // Token? token = await TokenService().getToken();
     final url = "${ProductApi.products}?size=80000";
 
@@ -26,8 +27,8 @@ class ProductService extends BaseProductService {
             'The connection has timed out, Please try again!');
       });
       if (response.statusCode.toString() == "200") {
-        List<Product> products =
-            Product().getListFromJson(json.decode(response.body)["result"]);
+        List<local_product.Product> products = local_product.Product()
+            .getListFromJson(json.decode(response.body)["result"]);
         ProductLocalService().saveProductsSecure(products);
         return products;
       }
@@ -37,7 +38,7 @@ class ProductService extends BaseProductService {
     }
   }
 
-  Future<Product?> getProduct(String barcode) async {
+  Future<local_product.Product?> getProduct(String barcode) async {
     // Token? token = await TokenService().getToken();
     final url = "${ProductApi.findProducts}/$barcode";
 
@@ -55,14 +56,38 @@ class ProductService extends BaseProductService {
       });
       if (response.statusCode.toString() == "200") {
         print(response.body);
-        Product product =
-            Product().getFromJson(json.decode(response.body)["result"]);
+        local_product.Product product = local_product.Product()
+            .getFromJson(json.decode(response.body)["result"]);
 
         return product;
       }
       return null;
     } catch (error) {
       rethrow;
+    }
+  }
+
+  /// request a product from the OpenFoodFacts database
+  Future<local_product.Product?> getProductFromAPI(String barcode) async {
+    final ProductQueryConfiguration configuration = ProductQueryConfiguration(
+      barcode,
+      language: OpenFoodFactsLanguage.FRENCH,
+      fields: [ProductField.ALL],
+      version: ProductQueryVersion.v3,
+    );
+    final ProductResultV3 result =
+        await OpenFoodAPIClient.getProductV3(configuration);
+
+    if (result.status == ProductResultV3.statusSuccess) {
+      local_product.Product product = local_product.Product();
+      product.codeBarre = barcode;
+      product.nomFr = result.product!.productName;
+      product.nomFr = result.product!.productName;
+
+      return product;
+    } else {
+      return null;
+      // throw Exception('product not found, please insert data for $barcode');
     }
   }
 }

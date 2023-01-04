@@ -105,7 +105,11 @@ class HomeController extends BaseHomeController
     Product product = scannedProducts[index];
     ProductLocalService().deleteProduct(product).then((value) {
       ProductLocalService().getProducts().then((value) {
-        scannedProducts = value!;
+        if (value != null) {
+          scannedProducts = value;
+        } else {
+          scannedProducts = List.empty(growable: true);
+        }
         change(scannedProducts, status: RxStatus.success());
       });
     });
@@ -136,6 +140,12 @@ class HomeController extends BaseHomeController
     change(scannedProducts, status: RxStatus.success());
 
     await cameraController!.resumeCamera();
+    barcodeController.clear();
+    nomArController.clear();
+    quantityController.clear();
+    costController.clear();
+    priceController.clear();
+    nomFrController.clear();
     Navigator.pop(Get.context!);
   }
 
@@ -166,10 +176,43 @@ class HomeController extends BaseHomeController
     });
 
     change(scannedProducts, status: RxStatus.success());
-
+    editBarcodeController.clear();
+    editNomArController.clear();
+    editQuantityController.clear();
+    editCostController.clear();
+    editPriceController.clear();
+    editNomFrController.clear();
     Navigator.pop(Get.context!);
   }
 
+  // Future<Product?>? getProduct(String barcode) async {
+  //   Product? result;
+  //   isLoading = true;
+  //   EasyLoading.show(
+  //       indicator: CircularProgressIndicator(
+  //     color: AppTheme.getThemeFromThemeMode().primaryColor,
+  //   ));
+
+  //   change(isLoading, status: RxStatus.success());
+
+  //   await ProductService().getProduct(barcode).then((value) {
+  //     if (value != null) {
+  //       scannedProduct = value;
+  //       barcodeController.text = scannedProduct.codeBarre.toString();
+  //       nomFrController.text = scannedProduct.nomFr.toString();
+  //     } else {
+  //       barcodeController.text = "Aucun produit trouvé";
+  //       nomFrController.text = "Acun produit trouvé";
+  //     }
+  //     isLoading = false;
+  //     EasyLoading.dismiss();
+  //     change(isLoading, status: RxStatus.success());
+  //     Navigator.push(Get.context!, SlideLeftRoute(const ProductInfoWidget()));
+  //   });
+
+  //   return result;
+  //   // return null;
+  // }
   Future<Product?>? getProduct(String barcode) async {
     Product? result;
     isLoading = true;
@@ -179,21 +222,37 @@ class HomeController extends BaseHomeController
     ));
 
     change(isLoading, status: RxStatus.success());
-
-    await ProductService().getProduct(barcode).then((value) {
-      if (value != null) {
-        scannedProduct = value;
-        barcodeController.text = scannedProduct.codeBarre.toString();
-        nomFrController.text = scannedProduct.nomFr.toString();
-      } else {
-        barcodeController.text = "Aucun produit trouvé";
-        nomFrController.text = "Acun produit trouvé";
-      }
-      isLoading = false;
-      EasyLoading.dismiss();
-      change(isLoading, status: RxStatus.success());
-      Navigator.push(Get.context!, SlideLeftRoute(const ProductInfoWidget()));
-    });
+    await ProductLocalService().getProduct(barcode).then(
+      (productFromLocal) {
+        if (productFromLocal == null) {
+          ProductService().getProductFromAPI(barcode).then((productFromAPI) {
+            if (productFromAPI != null) {
+              scannedProduct = productFromAPI;
+              barcodeController.text = scannedProduct.codeBarre.toString();
+              nomFrController.text = scannedProduct.nomFr.toString();
+            } else {
+              barcodeController.text = barcode;
+              nomFrController.text = "Type product name here";
+            }
+            isLoading = false;
+            EasyLoading.dismiss();
+            change(isLoading, status: RxStatus.success());
+            Navigator.push(
+                Get.context!, SlideLeftRoute(const ProductInfoWidget()));
+          });
+        } else {
+          scannedProduct = productFromLocal;
+          editBarcodeController.text = scannedProduct.codeBarre.toString();
+          editNomFrController.text = scannedProduct.nomFr.toString();
+          isLoading = false;
+          EasyLoading.dismiss();
+          change(isLoading, status: RxStatus.success());
+          showSnackBar(
+              LocaleKeys.error_title.tr, LocaleKeys.error_product_exists.tr);
+          cameraController!.resumeCamera();
+        }
+      },
+    );
 
     return result;
     // return null;
@@ -258,7 +317,7 @@ class HomeController extends BaseHomeController
     if (index == 1) {
       ProductLocalService().getProducts().then((value) {
         if (value != null) {
-          scannedProducts.clear();
+          scannedProducts = List.empty(growable: true);
           scannedProducts.addAll(value);
           change(scannedProducts, status: RxStatus.success());
         }

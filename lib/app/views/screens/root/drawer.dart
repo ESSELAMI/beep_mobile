@@ -195,78 +195,78 @@ class DrawerWidget extends GetView<DrawerWidgetController> {
                     Navigator.of(context).pop();
                   },
                 ),
-                ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    color: Get.rootDelegate.history.last.currentPage!.name
-                                .toString() ==
-                            Routes.PROFILE
-                        ? AppTheme.getThemeFromThemeMode().colorScheme.primary
-                        : AppTheme.getThemeFromThemeMode()
-                            .colorScheme
-                            .onBackground,
-                    size: 28,
-                  ),
-                  title: Text(LocaleKeys.label_profle.tr,
-                      style: AppTheme.getTextStyle(
-                          AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
-                          fontWeight: Get.rootDelegate.history.last.currentPage!
-                                      .name
-                                      .toString() ==
-                                  Routes.PROFILE
-                              ? 700
-                              : 600,
-                          color: Get.rootDelegate.history.last.currentPage!.name
-                                      .toString() ==
-                                  Routes.PROFILE
-                              ? AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .primary
-                              : AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground)),
-                  onTap: () {
-                    controller.changePage(0, Routes.PROFILE);
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.person,
+                //     color: Get.rootDelegate.history.last.currentPage!.name
+                //                 .toString() ==
+                //             Routes.PROFILE
+                //         ? AppTheme.getThemeFromThemeMode().colorScheme.primary
+                //         : AppTheme.getThemeFromThemeMode()
+                //             .colorScheme
+                //             .onBackground,
+                //     size: 28,
+                //   ),
+                //   title: Text(LocaleKeys.label_profle.tr,
+                //       style: AppTheme.getTextStyle(
+                //           AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
+                //           fontWeight: Get.rootDelegate.history.last.currentPage!
+                //                       .name
+                //                       .toString() ==
+                //                   Routes.PROFILE
+                //               ? 700
+                //               : 600,
+                //           color: Get.rootDelegate.history.last.currentPage!.name
+                //                       .toString() ==
+                //                   Routes.PROFILE
+                //               ? AppTheme.getThemeFromThemeMode()
+                //                   .colorScheme
+                //                   .primary
+                //               : AppTheme.getThemeFromThemeMode()
+                //                   .colorScheme
+                //                   .onBackground)),
+                //   onTap: () {
+                //     controller.changePage(0, Routes.PROFILE);
 
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.view_list,
-                    color: Get.rootDelegate.history.last.currentPage!.name
-                                .toString() ==
-                            Routes.FAMILYMEMBERS
-                        ? AppTheme.getThemeFromThemeMode().colorScheme.primary
-                        : AppTheme.getThemeFromThemeMode()
-                            .colorScheme
-                            .onBackground,
-                    size: 22,
-                  ),
-                  title: Text('Products',
-                      style: AppTheme.getTextStyle(
-                          AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
-                          fontWeight: Get.rootDelegate.history.last.currentPage!
-                                      .name
-                                      .toString() ==
-                                  Routes.FAMILYMEMBERS
-                              ? 700
-                              : 600,
-                          color: Get.rootDelegate.history.last.currentPage!.name
-                                      .toString() ==
-                                  Routes.FAMILYMEMBERS
-                              ? AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .primary
-                              : AppTheme.getThemeFromThemeMode()
-                                  .colorScheme
-                                  .onBackground)),
-                  onTap: () {
-                    controller.changePage(0, Routes.FAMILYMEMBERS);
+                //     Navigator.of(context).pop();
+                //   },
+                // ),
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.view_list,
+                //     color: Get.rootDelegate.history.last.currentPage!.name
+                //                 .toString() ==
+                //             Routes.FAMILYMEMBERS
+                //         ? AppTheme.getThemeFromThemeMode().colorScheme.primary
+                //         : AppTheme.getThemeFromThemeMode()
+                //             .colorScheme
+                //             .onBackground,
+                //     size: 22,
+                //   ),
+                //   title: Text('Products',
+                //       style: AppTheme.getTextStyle(
+                //           AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
+                //           fontWeight: Get.rootDelegate.history.last.currentPage!
+                //                       .name
+                //                       .toString() ==
+                //                   Routes.FAMILYMEMBERS
+                //               ? 700
+                //               : 600,
+                //           color: Get.rootDelegate.history.last.currentPage!.name
+                //                       .toString() ==
+                //                   Routes.FAMILYMEMBERS
+                //               ? AppTheme.getThemeFromThemeMode()
+                //                   .colorScheme
+                //                   .primary
+                //               : AppTheme.getThemeFromThemeMode()
+                //                   .colorScheme
+                //                   .onBackground)),
+                //   onTap: () {
+                //     controller.changePage(0, Routes.FAMILYMEMBERS);
 
-                    Navigator.of(context).pop();
-                  },
-                ),
+                //     Navigator.of(context).pop();
+                //   },
+                // ),
                 SizedBox(height: MySize.size32!),
                 Container(
                   margin: EdgeInsets.only(bottom: MySize.size50!),

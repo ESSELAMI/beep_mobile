@@ -40,7 +40,7 @@ class ProductLocalService {
           .where((element) => product.codeBarre == element.codeBarre);
       if (p.isNotEmpty) {
         await productsBox
-            .delete(p)
+            .delete(p.first.key)
             .then((value) async => await productsBox.add(product));
 
         return true;
@@ -68,13 +68,12 @@ class ProductLocalService {
       final productsBox = await Hive.openBox<Product>("products");
       // print(productsBox.containsKey(product));
       // print(product.toString());
-      var p = productsBox.values
-          .where((element) => product.codeBarre == element.codeBarre);
-      print(p.toString());
-      productsBox.delete(p);
-      for (var element in productsBox.values) {
-        print(element.codeBarre);
+      var p = productsBox.values.where((element) =>
+          product.codeBarre.toString() == element.codeBarre.toString());
+      if (p.isNotEmpty) {
+        productsBox.delete(p.first.key);
       }
+
       return true;
     } on Exception catch (e) {
       throw Exception(e.toString());
@@ -121,6 +120,28 @@ class ProductLocalService {
 
         productsBox.close();
         return temp;
+      }
+
+      return null;
+    } on Exception {
+      throw Exception();
+    }
+  }
+
+  Future<Product?> getProduct(String barcode) async {
+    try {
+      // const secureStorage = FlutterSecureStorage();
+      // final key = await secureStorage.read(key: 'key');
+      // final encryptionKey = base64Url.decode(key!);
+      final productsBox = await Hive.openBox<Product>("products");
+      var p = productsBox.values
+          .where((element) => barcode == element.codeBarre.toString());
+      // encryptionCipher: HiveAesCipher(encryptionKey));
+
+      if (productsBox.isEmpty || p.isEmpty) {
+        return null;
+      } else if (p.isNotEmpty) {
+        return p.first;
       }
 
       return null;

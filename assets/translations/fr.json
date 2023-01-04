@@ -258,5 +258,8 @@
   "label_manual": "Manuel",
   "label_product_image": "Photo du produit",
   "label_brand": "Marque",
-  "label_scan_barcode": "Scanner Code Barre"
+  "label_scan_barcode": "Scanner Code Barre",
+  "label_cost": "Prix d'achat",
+  "error_product_exists": "Produits déja scanné",
+  "label_products": "Produits"
 }

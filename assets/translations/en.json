@@ -258,5 +258,8 @@
   "label_manual": "Manual",
   "label_product_image": "Product image",
   "label_brand": "Brand name",
-  "label_scan_barcode": "Scan Barcode"
+  "label_scan_barcode": "Scan Barcode",
+  "label_cost": "Cost",
+  "error_product_exists": "Product already scanned",
+  "label_products": "Products"
 }

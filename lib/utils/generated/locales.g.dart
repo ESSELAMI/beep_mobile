@@ -283,6 +283,9 @@ class LocaleKeys {
   static const label_product_image = 'label_product_image';
   static const label_brand = 'label_brand';
   static const label_scan_barcode = 'label_scan_barcode';
+  static const label_cost = 'label_cost';
+  static const error_product_exists = 'error_product_exists';
+  static const label_products = 'label_products';
 }
 
 class Locales {
@@ -570,6 +573,9 @@ class Locales {
     'label_product_image': 'صورة المنتوج',
     'label_brand': 'العلامة التجارية',
     'label_scan_barcode': 'مسح الرمز الشريطى',
+    'label_cost': 'سعر الشراء',
+    'error_product_exists': 'تمت إضاقة المنتج من قبل',
+    'label_products': 'المنتجات',
   };
   static const en = {
     'app_name': 'EL HANAA APP',
@@ -858,6 +864,9 @@ class Locales {
     'label_product_image': 'Product image',
     'label_brand': 'Brand name',
     'label_scan_barcode': 'Scan Barcode',
+    'label_cost': 'Cost',
+    'error_product_exists': 'Product already scanned',
+    'label_products': 'Products',
   };
   static const fr = {
     'app_name': 'ESPACE EL HANAA ',
@@ -1157,5 +1166,8 @@ class Locales {
     'label_product_image': 'Photo du produit',
     'label_brand': 'Marque',
     'label_scan_barcode': 'Scanner Code Barre',
+    'label_cost': 'Prix d\'achat',
+    'error_product_exists': 'Produits déja scanné',
+    'label_products': 'Produits',
   };
 }

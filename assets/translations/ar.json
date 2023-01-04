@@ -258,5 +258,8 @@
   "label_manual": "يدويا",
   "label_product_image": "صورة المنتوج",
   "label_brand": "العلامة التجارية",
-  "label_scan_barcode": "مسح الرمز الشريطى"
+  "label_scan_barcode": "مسح الرمز الشريطى",
+  "label_cost": "سعر الشراء",
+  "error_product_exists": "تمت إضاقة المنتج من قبل",
+  "label_products": "المنتجات"
 }

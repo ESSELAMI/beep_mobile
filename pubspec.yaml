@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -54,22 +54,18 @@ dependencies:
   flutter_native_splash: ^2.2.9
   url_launcher: ^6.1.5
   hive_flutter: ^1.1.0
-  openfoodfacts:
+  openfoodfacts: ^2.0.1
   dropdown_search: ^5.0.2
   build_runner: ^2.1.7
   hive_generator: ^1.1.1
   convex_bottom_bar: ^3.0.0
   flutter_secure_storage:
- 
- 
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -92,7 +88,6 @@ flutter_icons:
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
 
 flutter:
-
   uses-material-design: true
   assets:
     - assets/flare/
@@ -102,7 +97,7 @@ flutter:
     - assets/json/
     - assets/audios/
   fonts:
-    - family: cairo 
+    - family: cairo
       fonts:
         - asset: assets/fonts/cairo/Cairo-Black.ttf
         - asset: assets/fonts/cairo/Cairo-Bold.ttf

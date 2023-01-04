@@ -452,9 +452,9 @@ class ProductEditWidget extends GetView<HomeController> {
                                     .colorScheme
                                     .onBackground,
                                 fontWeight: 500),
-                            hintText: "Quantity",
+                            hintText: LocaleKeys.label_quantity.tr,
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            labelText: "Quantity",
+                            labelText: LocaleKeys.label_quantity.tr,
                             labelStyle: AppTheme.getTextStyle(
                                 AppTheme.getThemeFromThemeMode()
                                     .textTheme
@@ -534,9 +534,9 @@ class ProductEditWidget extends GetView<HomeController> {
                                     .colorScheme
                                     .onBackground,
                                 fontWeight: 500),
-                            hintText: "Cost",
+                            hintText: LocaleKeys.label_cost.tr,
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            labelText: "Cost",
+                            labelText: LocaleKeys.label_cost.tr,
                             labelStyle: AppTheme.getTextStyle(
                                 AppTheme.getThemeFromThemeMode()
                                     .textTheme
@@ -616,9 +616,9 @@ class ProductEditWidget extends GetView<HomeController> {
                                     .colorScheme
                                     .onBackground,
                                 fontWeight: 500),
-                            hintText: "Price",
+                            hintText: LocaleKeys.label_price.tr,
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            labelText: "Price",
+                            labelText: LocaleKeys.label_price.tr,
                             labelStyle: AppTheme.getTextStyle(
                                 AppTheme.getThemeFromThemeMode()
                                     .textTheme
@@ -682,25 +682,26 @@ class ProductEditWidget extends GetView<HomeController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       FxButton(
-                          backgroundColor: AppTheme.getThemeFromThemeMode()
-                              .colorScheme
-                              .primary,
-                          borderRadiusAll: 4,
-                          elevation: 0,
-                          onPressed: () {
-                            controller.saveProduct();
-                          },
-                          child: Text(
-                            LocaleKeys.label_save.tr,
-                            style: AppTheme.getTextStyle(
-                                AppTheme.getThemeFromThemeMode()
-                                    .textTheme
-                                    .bodyText1,
-                                fontWeight: 600,
-                                color: AppTheme.getThemeFromThemeMode()
-                                    .colorScheme
-                                    .onPrimary),
-                          )),
+                        backgroundColor: AppTheme.getThemeFromThemeMode()
+                            .colorScheme
+                            .primary,
+                        borderRadiusAll: 4,
+                        elevation: 0,
+                        onPressed: () {
+                          controller.saveProduct();
+                        },
+                        child: Text(
+                          LocaleKeys.label_save.tr,
+                          style: AppTheme.getTextStyle(
+                              AppTheme.getThemeFromThemeMode()
+                                  .textTheme
+                                  .bodyText1,
+                              fontWeight: 600,
+                              color: AppTheme.getThemeFromThemeMode()
+                                  .colorScheme
+                                  .onPrimary),
+                        ),
+                      ),
                     ],
                   ),
                 ),

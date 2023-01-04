@@ -91,7 +91,39 @@ class LoginForm extends GetView<LoginController> {
                     keyboardType: TextInputType.text,
                     controller: controller.userNameController,
                     style: Style.userStyle,
-                    decoration: Style.userDecoration,
+                    decoration: InputDecoration(
+                      hintText: LocaleKeys.label_social_security_number.tr,
+                      hintStyle: AppTheme.getTextStyle(
+                          AppTheme.getThemeFromThemeMode().textTheme.subtitle2,
+                          letterSpacing: 0,
+                          color: const Color(0xff495057),
+                          fontWeight: 600),
+                      border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16),
+                          ),
+                          borderSide: BorderSide.none),
+                      enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16),
+                          ),
+                          borderSide: BorderSide.none),
+                      focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16),
+                          ),
+                          borderSide: BorderSide.none),
+                      filled: true,
+                      prefixIcon: Icon(
+                        MdiIcons.account,
+                        size: 22,
+                        color: AppTheme.getThemeFromThemeMode()
+                            .colorScheme
+                            .primary,
+                      ),
+                      isDense: true,
+                      contentPadding: const EdgeInsets.only(right: 16),
+                    ),
                     textCapitalization: TextCapitalization.sentences,
                   ),
                 ),
@@ -116,29 +148,29 @@ class LoginForm extends GetView<LoginController> {
                     obscureText: !controller.showPass,
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () => {
-                          controller.goToForgotPassword(),
-                        },
-                        child: Text(
-                          LocaleKeys.label_forgot_password.tr,
-                          style: TextStyle(
-                            color: AppTheme.getThemeFromThemeMode()
-                                .primaryColor
-                                .withOpacity(0.8),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding:
+                //       const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.end,
+                //     children: <Widget>[
+                //       GestureDetector(
+                //         onTap: () => {
+                //           controller.goToForgotPassword(),
+                //         },
+                //         child: Text(
+                //           LocaleKeys.label_forgot_password.tr,
+                //           style: TextStyle(
+                //             color: AppTheme.getThemeFromThemeMode()
+                //                 .primaryColor
+                //                 .withOpacity(0.8),
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 16),
                   width: MySize.safeWidth! * 0.4,
@@ -159,36 +191,36 @@ class LoginForm extends GetView<LoginController> {
                   ),
                 ),
                 SizedBox(height: MySize.safeHeight! * 0.015),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      LocaleKeys.label_no_account.tr,
-                      style: TextStyle(
-                        color: AppTheme.getThemeFromThemeMode()
-                            .primaryColor
-                            .withOpacity(0.9),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    GestureDetector(
-                      onTap: () => {
-                        controller.goToRegister(),
-                      },
-                      child: Text(
-                        LocaleKeys.label_register.tr,
-                        style: TextStyle(
-                          color: AppTheme.getThemeFromThemeMode()
-                              .primaryColor
-                              .withOpacity(0.8),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: <Widget>[
+                //     Text(
+                //       LocaleKeys.label_no_account.tr,
+                //       style: TextStyle(
+                //         color: AppTheme.getThemeFromThemeMode()
+                //             .primaryColor
+                //             .withOpacity(0.9),
+                //       ),
+                //     ),
+                //     const SizedBox(
+                //       width: 8,
+                //     ),
+                //     GestureDetector(
+                //       onTap: () => {
+                //         controller.goToRegister(),
+                //       },
+                //       child: Text(
+                //         LocaleKeys.label_register.tr,
+                //         style: TextStyle(
+                //           color: AppTheme.getThemeFromThemeMode()
+                //               .primaryColor
+                //               .withOpacity(0.8),
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     )
+                //   ],
+                // ),
               ],
             ),
           ),
